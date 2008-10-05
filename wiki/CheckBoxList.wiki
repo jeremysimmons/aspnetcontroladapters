@@ -1,0 +1,42 @@
+#summary Rendering notes for the CheckBoxList control
+#labels documentation,CheckBoxList
+
+= Introduction =
+
+Adapted content for the `CheckBoxList` control is available through the `CheckBoxListAdapter` or the `CssCheckBoxList` control.
+
+
+= HTML Rendering =
+
+The `CheckBoxList` is rendered as an unordered list (`UL`), with each checkbox included in a  list item (`LI`).
+
+
+= Configuration =
+
+Configuration options include the following:
+
+|| `CssClass` || The class applied to the unordered list. ||
+|| `DisabledCssClass` || The class applied to the unordered list if it is not enabled, and to list items if their respective checkbox is not enabled. ||
+|| `ItemCssClass` || The class added to each list item. ||
+|| `RepeatDirectionCssClass` || The class added to the unordered list to denote the repeat direction (horizontal or vertical). Note that the `CheckBoxList`'s `RepeatDirection` is appended to this class to allow proper selectivity. ||
+
+A sample configuration follows.
+
+{{{
+<CheckBoxList cssClass="AspNet-CheckBoxList" 
+	  disabledCssClass="AspNet-CheckBoxList-Disabled"
+	  itemCssClass="AspNet-CheckBoxList-Item" 
+	  repeatDirectionCssClass="AspNet-CheckBoxList-RepeatDirection-" />
+}}}
+
+
+= Properties Supported =
+
+The following table outlines those properties of the `CheckBoxList` control that are implemeted in the `CheckBoxListAdapter` and `CssCheckBoxList` control. Properties not listed are not supported or implemented.
+
+|| *Property* || *Implementation* ||
+|| `ClientID` || Used as the unordered list's `id` attribute. ||
+|| `CssClass` || When not null or empty, it is added to the unordered list's `class` list. ||
+|| `Enabled` || When set to `false`, the default `DisabledCssClass` is applied to the unordered list's `class` list and each list item's `class` list. ||
+|| `Items` || All items in the control are rendered. Items which are disabled have the default `DisabledCssClass` applied to their list item tag. ||
+|| `RepeatDirection` || The `RepeatDirection` is appended to the default `RepeatDirectionCssClass`. ||
