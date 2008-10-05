@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlAdapters", "ControlAdapters\ControlAdapters.csproj", "{73BD53D3-15FD-439C-9814-7E9B810E793F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlAdapters.UnitTests", "ControlAdapters.UnitTests\ControlAdapters.UnitTests.csproj", "{004F5DCE-F0AF-4703-A3FF-A0B07699F9FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlAdapters.WebTests", "ControlAdapters.WebTests\ControlAdapters.WebTests.csproj", "{73A774A6-A433-4877-9406-DCC905DE1062}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A6FBC678-D0EF-4B05-B6AF-EA34CB5E9CBC}"
+	ProjectSection(SolutionItems) = preProject
+		changes.txt = changes.txt
+		ControlAdapters.build = ControlAdapters.build
+		license.txt = license.txt
+		readme.txt = readme.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73BD53D3-15FD-439C-9814-7E9B810E793F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73BD53D3-15FD-439C-9814-7E9B810E793F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73BD53D3-15FD-439C-9814-7E9B810E793F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73BD53D3-15FD-439C-9814-7E9B810E793F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{004F5DCE-F0AF-4703-A3FF-A0B07699F9FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{004F5DCE-F0AF-4703-A3FF-A0B07699F9FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{004F5DCE-F0AF-4703-A3FF-A0B07699F9FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{004F5DCE-F0AF-4703-A3FF-A0B07699F9FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73A774A6-A433-4877-9406-DCC905DE1062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73A774A6-A433-4877-9406-DCC905DE1062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73A774A6-A433-4877-9406-DCC905DE1062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73A774A6-A433-4877-9406-DCC905DE1062}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

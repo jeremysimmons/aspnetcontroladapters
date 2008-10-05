@@ -1,0 +1,148 @@
+﻿using System;
+using System.Text;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using ControlAdapters.Configuration;
+
+namespace ControlAdapters.Renderers
+{
+	/// <summary>
+	/// Provides custom HTML rendering for a <see cref="WebControl"/>.
+	/// </summary>
+	/// <typeparam name="T">A <see cref="WebControl"/> type.</typeparam>
+	/// <remarks>
+	/// Unlike typical controls related to rendering web markup, the <see cref="HtmlRenderer"/> does not
+	/// output directly to the current request, even though an <see cref="HtmlTextWriter"/>
+	/// is provided to many methods. Instead, this class is responsible for returning the HTML output
+	/// as a string. 
+	/// 
+	/// This is done to improve testability. Output from <see cref="HtmlRenderer"/> objects
+	/// can be tested programmatically, and <see cref="ControlAdapter"/> objects rely on these renderers
+	/// for basic markup.
+	/// </remarks>
+	public abstract class HtmlRenderer<T> where T : WebControl
+	{
+		protected static ControlAdaptersConfigurationSection Settings = ControlAdaptersConfiguration.Settings;
+		protected T _control;
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HtmlRenderer"/> class.
+		/// </summary>
+		public HtmlRenderer()
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HtmlRenderer"/> class.
+		/// </summary>
+		/// <param name="control">The control this renderer generates HTML for.</param>
+		public HtmlRenderer(T control)
+		{
+			_control = control;
+		}
+
+		/// <summary>
+		/// Gets or sets the control this renderer generates HTML for.
+		/// </summary>
+		public T Control
+		{
+			get { return _control; }
+			set { _control = value; }
+		}
+
+		/// <summary>
+		/// Renders the beginning HTML code for a control. Intended to be called by a control adapter's
+		/// RenderBeginTag method.
+		/// </summary>
+		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use when rendering output.</param>
+		/// <returns>The generated HTML.</returns>
+		public abstract string RenderBeginTag(HtmlTextWriter writer);
+
+		/// <summary>
+		/// Renders the inner HTML code for a control. Intended to be called by a control adapter's
+		/// RenderContents method.
+		/// </summary>
+		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use when rendering output.</param>
+		/// <returns>The generated HTML.</returns>
+		public abstract void RenderContents(HtmlTextWriter writer);
+
+		/// <summary>
+		/// Renders the ending HTML code for a control. Intended to be called by a control adapter's
+		/// RenderEndTag method.
+		/// </summary>
+		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use when rendering output.</param>
+		/// <returns>The generated HTML.</returns>
+		public abstract void RenderEndTag(HtmlTextWriter writer);
+
+		/// <summary>
+		/// Concatenates a series of CSS class names into a markup-friendly class list.
+		/// </summary>
+		/// <param name="classes">The CSS classes to concatenate.</param>
+		/// <returns>A markup-friendly class list.</returns>
+		/// <remarks>
+		/// Duplicates are permitted and would be included in the output. Empty strings are skipped.
+		/// </remarks>
+		public static string ConcatenateCssClasses(params string[] classes)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (string cl in classes)
+			{
+				if (String.IsNullOrEmpty(cl))
+					continue;
+
+				if (sb.Length > 0)
+					sb.Append(' ');
+
+				sb.Append(cl);
+			}
+
+			return sb.ToString();
+		}
+
+		/// <summary>
+		/// Gets an ASP.Net-formatted HTML ID for a given <see cref="ListItem"/> in a 
+		/// given <see cref="ListControl"/>.
+		/// </summary>
+		/// <param name="control">The <see cref="ListControl"/> containing the list item.</param>
+		/// <param name="item">The <see cref="ListItem"/> which the ClientID is generated for.</param>
+		/// <returns>The HTML ID of the list item.</returns>
+		/// <exception cref="ArgumentNullException">
+		///	<paramref name="control"/> is null.
+		/// </exception>
+		/// <exception cref="IndexOutOfRangeException">
+		/// <paramref name="item"/> does not exist in the Items collection for <paramref name="control"/>.
+		/// </exception>
+		public static string GetListItemClientID(ListControl control, ListItem item)
+		{
+			if (control == null)
+				throw new ArgumentNullException("control");
+
+			int index = GetListItemIndex(control, item);
+			if (index == -1)
+				throw new IndexOutOfRangeException(
+					String.Format("ListItem '{0}' does not exist in ListControl '{1}'.", (item == null ? "null" : item.Text), control.ID));
+
+			return String.Format("{0}_{1}", control.ClientID, index.ToString());
+		}
+
+		/// <summary>
+		/// Gets the zero-based index of a given <see cref="ListItem"/> from a <see cref="ListControl"/>.
+		/// </summary>
+		/// <param name="control">The <see cref="ListControl"/> containing the list item.</param>
+		/// <param name="item">The <see cref="ListItem"/> whose index is requested.</param>
+		/// <returns>The index of the item. If the list item doesn't exist in the control, returns -1.</returns>
+		/// <exception cref="ArgumentNullException">
+		///	<paramref name="control"/> is null.
+		/// </exception>
+		public static int GetListItemIndex(ListControl control, ListItem item)
+		{
+			if (control == null)
+				throw new ArgumentNullException("control");
+
+			int index = control.Items.IndexOf(item);
+
+			return index;
+		}
+
+	}
+}

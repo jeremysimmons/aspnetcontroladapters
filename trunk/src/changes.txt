@@ -1,0 +1,8 @@
+ASP.NET Control Adapters
+========================
+
+
+CHANGE LOG
+----------
+
+- Initial check-in of CheckBoxList control / proof of concept.

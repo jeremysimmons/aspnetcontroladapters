@@ -1,0 +1,87 @@
+﻿<?xml version="1.0"?>
+<project name="ControlAdapters" default="build" basedir=".">
+	<description>ControlAdapters -- NAnt Build</description>
+	<property name="debug" value="true" />
+	<property name="build.dir" value="build" />
+	
+	<echo message="debug: ${debug}" />
+	<echo message="build.dir: ${build.dir}" />
+
+	<target name="init" description="sets up environment for build">
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="clean" description="removes old files, copies new reference DLLs">
+		<delete dir="${build.dir}" failonerror="false" />
+		<delete>
+			<fileset basedir="${build.dir}">
+				<include name="*.*" />
+			</fileset>
+		</delete>
+		<copy todir="${build.dir}">
+			<fileset basedir=".\lib">
+				<include name="*.dll" />
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="build" description="build projects, excluding tests (default)" depends="clean,init">
+		<csc target="library" output="${build.dir}\ControlAdapters.dll" debug="${debug}" doc="${build.dir}\ControlAdapters.xml">
+			<sources basedir="ControlAdapters">
+				<include name="**/*.cs" />
+			</sources>
+			<references basedir="${build.dir}">
+				<include name="System.dll" />
+				<include name="System.Configuration.dll" />
+				<include name="System.Web.dll" />
+			</references>
+		</csc>
+	</target>
+
+	<target name="build-tests" description="build all test projects" depends="build">
+		<csc target="library" output="${build.dir}\ControlAdapters.UnitTests.dll" debug="true">
+			<sources basedir="ControlAdapters.UnitTests">
+				<include name="**/*.cs" />
+			</sources>
+			<references basedir="${build.dir}">
+				<include name="ControlAdapters.dll" />
+				<include name="NUnit.Framework.dll" />
+				<include name="System.dll" />
+				<include name="System.Configuration.dll" />
+				<include name="System.Web.dll" />
+			</references>
+		</csc>
+		<copy file="ControlAdapters.UnitTests\App.config" tofile="${build.dir}\ControlAdapters.UnitTests.dll.config" />
+	</target>
+	
+	<target name="test" description="builds all and runs unit tests" depends="build-tests">
+		<exec 
+			workingdir="${build.dir}"
+			program="nunit-console.exe">
+			<arg value="ControlAdapters.UnitTests.dll" />
+			<arg value="/xml=ControlAdapters.UnitTests-results.xml" />
+		</exec>
+	</target>
+	
+	<target name="cover" description="builds all and runs unit tests using NCover" depends="build-tests">
+		<ncover
+			program="C:\Program Files\TestDriven.NET 2.0\NCover\1.5.8\NCover.Console.exe"
+			commandLineExe="nunit-console.exe"
+			workingDirectory="${build.dir}"
+			commandLineArgs="ControlAdapters.UnitTests.dll /xml=ControlAdapters.UnitTests-results.xml"
+			logFile="${build.dir}\ControlAdapters.UnitTests-coverage.log"
+			coverageFile="${build.dir}\ControlAdapters.UnitTests-coverage.xml"
+			assemblyList="ControlAdapters.dll"
+		/>
+	</target>
+	
+	<target name="coverex" depends="cover">
+		<exec
+			workingdir="${build.dir}"
+			program="ncoverexplorer.exe">
+			<arg value="ControlAdapters.UnitTests-coverage.xml" />
+		</exec>
+	</target>
+
+</project>
