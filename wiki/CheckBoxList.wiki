@@ -1,5 +1,5 @@
 #summary Rendering notes for the CheckBoxList control
-#labels documentation,CheckBoxList
+#labels documentation,CheckBoxList,Featured
 
 = Introduction =
 
