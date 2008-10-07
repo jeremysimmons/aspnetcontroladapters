@@ -19,7 +19,7 @@
 			</fileset>
 		</delete>
 		<copy todir="${build.dir}">
-			<fileset basedir=".\lib">
+			<fileset basedir="..\lib">
 				<include name="*.dll" />
 				<include name="*.xml" />
 			</fileset>

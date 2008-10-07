@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using ControlAdapters.Renderers;
 
 namespace ControlAdapters.WebTests
 {
 	public partial class CheckBoxList : System.Web.UI.Page
 	{
+		protected override void OnLoad(EventArgs e)
+		{
+			base.OnLoad(e);
+
+			CheckBoxListHtmlRenderer renderer = new CheckBoxListHtmlRenderer(CheckBoxList2);
+
+			adaptedMarkup.InnerHtml = Server.HtmlEncode(renderer.RenderBeginTag() + renderer.RenderContents() + renderer.RenderEndTag());
+		}
 	}
 }

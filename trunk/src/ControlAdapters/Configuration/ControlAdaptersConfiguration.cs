@@ -8,7 +8,7 @@ namespace ControlAdapters.Configuration
 		private static ControlAdaptersConfigurationSection _config;
 
 		/// <summary>
-		/// Initializes a new instance of a <see cref="ControlAdaptersSettings"/>.
+		/// Initializes a new instance of a <see cref="ControlAdaptersConfiguration"/>.
 		/// </summary>
 		static ControlAdaptersConfiguration()
 		{

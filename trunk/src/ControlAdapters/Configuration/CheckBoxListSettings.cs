@@ -8,7 +8,7 @@ namespace ControlAdapters.Configuration
 		private static readonly CheckBoxListSettings _defaultSettings = new CheckBoxListSettings();
 
 		/// <summary>
-		/// Initializes a new instance of <see cref="CheckBoxListAdapterSettings"/>.
+		/// Initializes a new instance of <see cref="CheckBoxListSettings"/>.
 		/// </summary>
 		public CheckBoxListSettings()
 		{

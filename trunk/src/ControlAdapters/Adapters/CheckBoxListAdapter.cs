@@ -7,26 +7,18 @@ using ControlAdapters.Renderers;
 
 namespace ControlAdapters.Adapters
 {
+	/// <summary>
+	/// Adapts the output of the <see cref="CheckBoxList"/> control.
+	/// </summary>
 	public class CheckBoxListAdapter : ControlAdapterBase<CheckBoxList>
 	{
+		/// <summary>
+		/// Creates and returns the renderer to use for HTML rendering.
+		/// </summary>
+		/// <returns>The renderer to use.</returns>
 		protected override HtmlRenderer<CheckBoxList> CreateHtmlRenderer()
 		{
 			return new CheckBoxListHtmlRenderer(this.AdaptedControl);
-		}
-
-		protected override void RenderBeginTag(HtmlTextWriter writer)
-		{
-			_renderer.RenderBeginTag(writer);
-		}
-
-		protected override void RenderContents(HtmlTextWriter writer)
-		{
-			_renderer.RenderContents(writer);
-		}
-
-		protected override void RenderEndTag(HtmlTextWriter writer)
-		{
-			_renderer.RenderEndTag(writer);
 		}
 
 		protected override void EndRender(HtmlTextWriter writer)
