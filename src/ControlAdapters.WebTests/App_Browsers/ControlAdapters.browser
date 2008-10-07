@@ -1,0 +1,14 @@
+﻿<browsers>
+	<browser refID="Default">
+		<controlAdapters>
+			<adapter controlType="ControlAdapters.WebControls.CheckBoxList"
+					 adapterType="ControlAdapters.Adapters.CheckBoxListAdapter" />
+			<!--
+			Disabled adapters for default ASP.Net controls
+			
+			<adapter controlType="System.Web.UI.WebControls.CheckBoxList"
+					 adapterType="ControlAdapters.Adapters.CheckBoxListAdapter" />
+			-->
+		</controlAdapters>
+	</browser>
+</browsers>

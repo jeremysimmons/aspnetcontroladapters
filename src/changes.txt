@@ -5,4 +5,4 @@ ASP.NET Control Adapters
 CHANGE LOG
 ----------
 
-- Initial check-in of CheckBoxList control / proof of concept.
+For a complete change log, go to http://code.google.com/p/aspnetcontroladapters/source/list.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,13 +12,13 @@ namespace ControlAdapters.Renderers
 	/// </summary>
 	/// <typeparam name="T">A <see cref="WebControl"/> type.</typeparam>
 	/// <remarks>
-	/// Unlike typical controls related to rendering web markup, the <see cref="HtmlRenderer"/> does not
+	/// Unlike typical controls related to rendering web markup, the HtmlRenderer does not
 	/// output directly to the current request, even though an <see cref="HtmlTextWriter"/>
 	/// is provided to many methods. Instead, this class is responsible for returning the HTML output
 	/// as a string. 
 	/// 
-	/// This is done to improve testability. Output from <see cref="HtmlRenderer"/> objects
-	/// can be tested programmatically, and <see cref="ControlAdapter"/> objects rely on these renderers
+	/// This is done to improve testability. Output from HtmlRenderer objects
+	/// can be tested programmatically, and the custom control adapters rely on these renderers
 	/// for basic markup.
 	/// </remarks>
 	public abstract class HtmlRenderer<T> where T : WebControl
@@ -26,14 +27,14 @@ namespace ControlAdapters.Renderers
 		protected T _control;
 		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="HtmlRenderer"/> class.
+		/// Initializes a new instance of the class.
 		/// </summary>
 		public HtmlRenderer()
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="HtmlRenderer"/> class.
+		/// Initializes a new instance of the class.
 		/// </summary>
 		/// <param name="control">The control this renderer generates HTML for.</param>
 		public HtmlRenderer(T control)
@@ -54,25 +55,22 @@ namespace ControlAdapters.Renderers
 		/// Renders the beginning HTML code for a control. Intended to be called by a control adapter's
 		/// RenderBeginTag method.
 		/// </summary>
-		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use when rendering output.</param>
 		/// <returns>The generated HTML.</returns>
-		public abstract string RenderBeginTag(HtmlTextWriter writer);
+		public abstract string RenderBeginTag();
 
 		/// <summary>
 		/// Renders the inner HTML code for a control. Intended to be called by a control adapter's
 		/// RenderContents method.
 		/// </summary>
-		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use when rendering output.</param>
 		/// <returns>The generated HTML.</returns>
-		public abstract void RenderContents(HtmlTextWriter writer);
+		public abstract string RenderContents();
 
 		/// <summary>
 		/// Renders the ending HTML code for a control. Intended to be called by a control adapter's
 		/// RenderEndTag method.
 		/// </summary>
-		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use when rendering output.</param>
 		/// <returns>The generated HTML.</returns>
-		public abstract void RenderEndTag(HtmlTextWriter writer);
+		public abstract string RenderEndTag();
 
 		/// <summary>
 		/// Concatenates a series of CSS class names into a markup-friendly class list.
@@ -97,6 +95,16 @@ namespace ControlAdapters.Renderers
 			}
 
 			return sb.ToString();
+		}
+
+		/// <summary>
+		/// Gets the HTML Name attribute value, such as for form fields, from a given ID attribute value.
+		/// </summary>
+		/// <param name="clientID">The ID attribute value.</param>
+		/// <returns>The corresponding Name attribute value.</returns>
+		public static string GetNameFromClientID(string clientID)
+		{
+			return clientID.Replace('_', '$');
 		}
 
 		/// <summary>
@@ -144,5 +152,13 @@ namespace ControlAdapters.Renderers
 			return index;
 		}
 
+		/// <summary>
+		/// Returns a new <see cref="HtmlTextWriter"/> for use in rendering output.
+		/// </summary>
+		/// <returns>A new <see cref="HtmlTextWriter"/>.</returns>
+		protected static HtmlTextWriter GetNewHtmlTextWriter()
+		{
+			return new HtmlTextWriter(new StringWriter());
+		}
 	}
 }
