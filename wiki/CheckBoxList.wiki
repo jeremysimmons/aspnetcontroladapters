@@ -17,6 +17,7 @@ ASP.Net Code:
 <asp:CheckBoxList ID="CheckBoxList1" runat="server">
 	<asp:ListItem Value="0" Text="Normal" />
 	<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
+	<asp:ListItem Value="2" Text="Selected" Selected="True" />
 	<asp:ListItem Value="NoText" />
 	<asp:ListItem />
 </asp:CheckBoxList>
@@ -24,11 +25,12 @@ ASP.Net Code:
 
 Control Adapter markup:
 {{{
-<ul class="AspNet-CheckBoxList AspNet-CheckBoxList-RepeatDirection-Vertical" id="ctl00_ContentPlaceHolder1_CheckBoxList2">
-	<li class="AspNet-CheckBoxList-Item"><input id="ctl00_ContentPlaceHolder1_CheckBoxList2_0" name="ctl00$ContentPlaceHolder1$CheckBoxList2$0" type="checkbox" value="0" /><label for="ctl00_ContentPlaceHolder1_CheckBoxList2_0">Normal</label></li>
-	<li class="AspNet-CheckBoxList-Item AspNet-CheckBoxList-Disabled"><input id="ctl00_ContentPlaceHolder1_CheckBoxList2_1" name="ctl00$ContentPlaceHolder1$CheckBoxList2$1" type="checkbox" disabled="disabled" value="1" /><label for="ctl00_ContentPlaceHolder1_CheckBoxList2_1">Disabled</label></li>
-	<li class="AspNet-CheckBoxList-Item"><input id="ctl00_ContentPlaceHolder1_CheckBoxList2_2" name="ctl00$ContentPlaceHolder1$CheckBoxList2$2" type="checkbox" value="NoText" /><label for="ctl00_ContentPlaceHolder1_CheckBoxList2_2">NoText</label></li>
-	<li class="AspNet-CheckBoxList-Item"><input id="ctl00_ContentPlaceHolder1_CheckBoxList2_3" name="ctl00$ContentPlaceHolder1$CheckBoxList2$3" type="checkbox" value="" /></li>
+<ul class="checkBoxList vertical" id="adaptedCheckBoxList">
+	<li><input id="adaptedCheckBoxList_0" name="adaptedCheckBoxList$0" type="checkbox" value="0" /><label for="adaptedCheckBoxList_0">Normal</label></li>
+	<li class="disabled"><input id="adaptedCheckBoxList_1" name="adaptedCheckBoxList$1" type="checkbox" disabled="disabled" value="1" /><label for="adaptedCheckBoxList_1">Disabled</label></li>
+	<li><input id="adaptedCheckBoxList_2" name="adaptedCheckBoxList$2" type="checkbox" checked="checked" value="2" /><label for="adaptedCheckBoxList_2">Selected</label></li>
+	<li><input id="adaptedCheckBoxList_3" name="adaptedCheckBoxList$3" type="checkbox" value="NoText" /><label for="adaptedCheckBoxList_3">NoText</label></li>
+	<li><input id="adaptedCheckBoxList_4" name="adaptedCheckBoxList$4" type="checkbox" value="" /></li>
 </ul>
 }}}
 
@@ -37,18 +39,14 @@ Control Adapter markup:
 
 Configuration options include the following:
 
-|| `CssClass` || The class applied to the unordered list. ||
-|| `DisabledCssClass` || The class applied to the unordered list if it is not enabled, and to list items if their respective checkbox is not enabled. ||
-|| `ItemCssClass` || The class added to each list item. ||
-|| `RepeatDirectionCssClass` || The class added to the unordered list to denote the repeat direction (horizontal or vertical). Note that the `CheckBoxList`'s `RepeatDirection` is appended to this class to allow proper selectivity. ||
+|| `CssClass` || The class applied to the `ul` element. ||
+|| `DisabledCssClass` || If the control, or a list item in the control, is disabled, this class is applied to the `li` element. ||
 
 A sample configuration follows.
 
 {{{
-<CheckBoxList cssClass="AspNet-CheckBoxList" 
-	  disabledCssClass="AspNet-CheckBoxList-Disabled"
-	  itemCssClass="AspNet-CheckBoxList-Item" 
-	  repeatDirectionCssClass="AspNet-CheckBoxList-RepeatDirection-" />
+<CheckBoxList cssClass="checkBoxList" 
+	  disabledCssClass="disabled" />
 }}}
 
 
@@ -61,10 +59,10 @@ The following table outlines those properties of the `CheckBoxList` control that
 || *Property* || *Implementation* ||
 || `ClientID` || Used as the unordered list's `id` attribute. ||
 || `CssClass` || When not null or empty, it is added to the unordered list's `class` list. ||
-|| `Enabled` || When set to `false`, the default `DisabledCssClass` is applied to the unordered list's `class` list and each list item's `class` list. ||
-|| `Items` || All items in the control are rendered. Items which are disabled have the default `DisabledCssClass` applied to their list item tag. ||
-|| `RepeatDirection` || The `RepeatDirection` is appended to the default `RepeatDirectionCssClass`. ||
-|| `TextAlign` || Used to place the HTML `label` tag before or after the `input` checkbox. ||
+|| `Enabled` || When set to `false` and the default `DisabledCssClass` is specified, this class is added to the unordered list's and each list item's `class` list. ||
+|| `Items` || All items in the control are rendered. Items which are disabled have the default `DisabledCssClass` applied to the appropriate list item element. ||
+|| `RepeatDirection` || A lower-case string representation of `RepeatDirection` (i.e. `horizontal` or `vertical` is added as a CSS class in the unordered list's `class` list. ||
+|| `TextAlign` || Specifies placement of the HTML `label` tag before or after the `input` checkbox. ||
 
 
 == ListItem Properties Supported ==
