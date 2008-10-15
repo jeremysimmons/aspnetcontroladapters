@@ -3,12 +3,17 @@ using System.Configuration;
 
 namespace ControlAdapters.Configuration
 {
+	/// <summary>
+	/// Provides access to the configuration options for the control adapters
+	/// as defined in the application's configuration file.
+	/// </summary>
 	public static class ControlAdaptersConfiguration
 	{
 		private static ControlAdaptersConfigurationSection _config;
 
 		/// <summary>
-		/// Initializes a new instance of a <see cref="ControlAdaptersConfiguration"/>.
+		/// Initializes the static instance of a <see cref="ControlAdaptersConfiguration"/> by reading
+		/// the <c>ControlAdapters</c> section of the application's configuration file.
 		/// </summary>
 		static ControlAdaptersConfiguration()
 		{
@@ -20,6 +25,10 @@ namespace ControlAdapters.Configuration
 			 }
 		}
 
+		/// <summary>
+		/// Returns the <see cref="ControlAdaptersConfigurationSection"/> based on the application's
+		/// configuration file.
+		/// </summary>
 		public static ControlAdaptersConfigurationSection Settings
 		{
 			get { return _config; }

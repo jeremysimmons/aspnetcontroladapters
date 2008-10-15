@@ -1,41 +1,69 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CheckBoxList.aspx.cs" Inherits="ControlAdapters.WebTests.CheckBoxList"
-	MasterPageFile="~/Default.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" %>
+<%@ Import Namespace="ControlAdapters.Renderers" %>
 
-<asp:Content runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
-	<h1>
-		ControlAdapters CheckBoxList Adapter Tests</h1>
-	<h2>
-		Default ASP.Net Markup</h2>
-	<pre>
-&lt;table id=&quot;ctl00_ContentPlaceHolder1_CheckBoxList1&quot; border=&quot;0&quot;&gt;
-	&lt;tr&gt;
-		&lt;td&gt;
-			&lt;input id=&quot;ctl00_ContentPlaceHolder1_CheckBoxList1_0&quot; type=&quot;checkbox&quot; name=&quot;ctl00$ContentPlaceHolder1$CheckBoxList1$0&quot; /&gt;
-			&lt;label for=&quot;ctl00_ContentPlaceHolder1_CheckBoxList1_0&quot;&gt;Text 0&lt;/label&gt;
-		&lt;/td&gt;
-		&lt;td&gt;
-			&lt;span disabled=&quot;disabled&quot;&gt;
-				&lt;input id=&quot;ctl00_ContentPlaceHolder1_CheckBoxList1_1&quot; type=&quot;checkbox&quot; name=&quot;ctl00$ContentPlaceHolder1$CheckBoxList1$1&quot; disabled=&quot;disabled&quot; /&gt;
-				&lt;label for=&quot;ctl00_ContentPlaceHolder1_CheckBoxList1_1&quot;&gt;Text 1&lt;/label&gt;
-			&lt;/span&gt;
-		&lt;/td&gt;
-	&lt;/tr&gt;
-&lt;/table&gt;
-	</pre>
-	<asp:CheckBoxList ID="CheckBoxList1" runat="server">
-		<asp:ListItem Value="0" Text="Normal" />
-		<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
-		<asp:ListItem Value="NoText" />
-		<asp:ListItem />
-	</asp:CheckBoxList>
-	<h2>
-		Adapted ASP.Net Markup</h2>
-	<pre runat="server" id="adaptedMarkup">
-	</pre>
-	<ca:CheckBoxList ID="CheckBoxList2" runat="server">
-		<asp:ListItem Value="0" Text="Normal" />
-		<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
-		<asp:ListItem Value="NoText" />
-		<asp:ListItem />
-	</ca:CheckBoxList>
-</asp:Content>
+<script runat="server">
+	protected override void OnLoad(EventArgs e)
+	{
+		base.OnLoad(e);
+
+		defaultCheckBoxList.Attributes["attrib1"] = "test1";
+		adaptedCheckBoxList.Attributes["attrib1"] = "test1";
+
+		RepeatDirection rDir = (repeatDirectionOption.SelectedValue == "horizontal"
+			? RepeatDirection.Horizontal : RepeatDirection.Vertical);
+
+		defaultCheckBoxList.RepeatDirection = rDir;
+		adaptedCheckBoxList.RepeatDirection = rDir;
+
+		CheckBoxListHtmlRenderer renderer = new CheckBoxListHtmlRenderer(adaptedCheckBoxList);
+		adaptedMarkup.InnerHtml = Server.HtmlEncode(renderer.RenderBeginTag() + renderer.RenderContents() + renderer.RenderEndTag());
+	}
+</script>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head runat="server">
+		<title>Control Adapters: CheckBoxList</title>
+	</head>
+	<body>
+		<form id="form1" runat="server">
+			<div>
+				<h1>ControlAdapters CheckBoxList Adapter Tests</h1>
+
+				<h2>Markup Options</h2>
+
+				<asp:DropDownList runat="server" ID="repeatDirectionOption" AutoPostBack="true">
+					<asp:ListItem Value="vertical">Vertical</asp:ListItem>
+					<asp:ListItem Value="horizontal">Horizontal</asp:ListItem>
+				</asp:DropDownList>
+
+				<hr />
+
+				<h2>Default ASP.Net Markup</h2>
+
+				<asp:CheckBoxList ID="defaultCheckBoxList" runat="server" AccessKey="A" CssClass="class" attrib2="test2" AutoPostBack="true">
+					<asp:ListItem Value="0">Normal</asp:ListItem>
+					<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
+					<asp:ListItem Value="2" Text="Selected" Selected="True" />
+					<asp:ListItem Value="NoText" />
+					<asp:ListItem />
+				</asp:CheckBoxList>
+
+				<hr />
+
+				<h2>Adapted ASP.Net Markup</h2>
+
+				<asp:Panel runat="server" ID="defaultPostbackResult"></asp:Panel>
+				<ca:CheckBoxList ID="adaptedCheckBoxList" runat="server" AccessKey="B" CssClass="class" attrib2="test2" AutoPostBack="true">
+					<asp:ListItem Value="0">Normal</asp:ListItem>
+					<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
+					<asp:ListItem Value="2" Text="Selected" Selected="True" />
+					<asp:ListItem Value="NoText" />
+					<asp:ListItem />
+				</ca:CheckBoxList>
+
+				<pre runat="server" id="adaptedMarkup"></pre>
+			</div>
+		</form>
+	</body>
+</html>

@@ -18,10 +18,7 @@ namespace ControlAdapters.Renderers
 
 			string cssClass = Settings.CheckBoxList.CssClass;
 			string disabledCssClass = Settings.CheckBoxList.DisabledCssClass;
-			string repeatDirectionCssClass = Settings.CheckBoxList.RepeatDirectionCssClass;
-
-			if (!String.IsNullOrEmpty(repeatDirectionCssClass))
-				repeatDirectionCssClass += Control.RepeatDirection.ToString();
+			string repeatDirectionCssClass = Control.RepeatDirection.ToString().ToLowerInvariant();
 
 			string allClasses = ConcatenateCssClasses(cssClass, repeatDirectionCssClass,
 				(Control.Enabled ? String.Empty : disabledCssClass), Control.CssClass);
@@ -30,6 +27,10 @@ namespace ControlAdapters.Renderers
 			if (!String.IsNullOrEmpty(allClasses))
 				writer.WriteAttribute("class", allClasses);
 			writer.WriteAttribute("id", Control.ClientID);
+			foreach (string key in Control.Attributes.Keys)
+			{
+				writer.WriteAttribute(key, Control.Attributes[key]);
+			}
 			writer.WriteLine(HtmlTextWriter.TagRightChar);
 
 			return writer.InnerWriter.ToString();
@@ -42,9 +43,7 @@ namespace ControlAdapters.Renderers
 			foreach (ListItem li in Control.Items)
 			{
 				string inputID = GetListItemClientID(Control, li);
-				string cssClass = ConcatenateCssClasses(
-					Settings.CheckBoxList.ItemCssClass, 
-					(li.Enabled && Control.Enabled ? String.Empty : Settings.CheckBoxList.DisabledCssClass));
+				string cssClass = (li.Enabled && Control.Enabled ? String.Empty : Settings.CheckBoxList.DisabledCssClass);
 
 				writer.Write("\t");
 				writer.WriteBeginTag("li");
@@ -84,13 +83,23 @@ namespace ControlAdapters.Renderers
 
 		protected void RenderCheckBoxListInput(HtmlTextWriter writer, ListItem li, string inputID)
 		{
+			string inputName = GetNameFromClientID(inputID);
 			writer.WriteBeginTag("input");
 			writer.WriteAttribute("id", inputID);
-			writer.WriteAttribute("name", GetNameFromClientID(inputID));
+			writer.WriteAttribute("name", inputName);
 			writer.WriteAttribute("type", "checkbox");
+			
+			if (!String.IsNullOrEmpty(li.Value))
+				writer.WriteAttribute("value", li.Value);
 			if (li.Enabled == false)
 				writer.WriteAttribute("disabled", "disabled");
-			writer.WriteAttribute("value", li.Value);
+			if (li.Selected == true)
+				writer.WriteAttribute("checked", "checked");
+			if (!String.IsNullOrEmpty(Control.AccessKey))
+				writer.WriteAttribute("accesskey", Control.AccessKey);
+			if (Control.AutoPostBack)
+				writer.WriteAttribute("onclick", String.Format(@"javascript:setTimeout('__doPostBack(\'{0}\',\'\')', 0)", inputName));
+
 			writer.Write(HtmlTextWriter.SelfClosingTagEnd);
 		}
 
