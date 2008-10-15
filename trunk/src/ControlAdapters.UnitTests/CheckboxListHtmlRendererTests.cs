@@ -29,10 +29,10 @@ namespace ControlAdapters.UnitTests
 			CheckBoxListHtmlRenderer renderer = new CheckBoxListHtmlRenderer(control);
 
 			Assert.AreEqual(renderer.RenderBeginTag(),
-				"<ul class=\"AspNet-CheckBoxList AspNet-CheckBoxList-RepeatDirection-Vertical\" id=\"test\">\r\n");
+				"<ul class=\"checkBoxList vertical\" id=\"test\">\r\n");
 
 			Assert.AreEqual(renderer.RenderContents(),
-				"\t<li class=\"AspNet-CheckBoxList-Item\"><input id=\"test_0\" name=\"test$0\" type=\"checkbox\" value=\"value1\" /><label for=\"test_0\">item1</label></li>\r\n");
+				"\t<li><input id=\"test_0\" name=\"test$0\" type=\"checkbox\" value=\"value1\" /><label for=\"test_0\">item1</label></li>\r\n");
 
 			Assert.AreEqual(renderer.RenderEndTag(),
 				"</ul>\r\n");

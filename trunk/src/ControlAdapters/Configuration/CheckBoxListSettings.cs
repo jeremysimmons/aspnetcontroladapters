@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Configuration;
+using ControlAdapters.Adapters;
 
 namespace ControlAdapters.Configuration
 {
+	/// <summary>
+	/// Represents the configuration settings for the <see cref="CheckBoxListAdapter"/>.
+	/// </summary>
 	public class CheckBoxListSettings : ConfigurationElement
 	{
 		private static readonly CheckBoxListSettings _defaultSettings = new CheckBoxListSettings();
@@ -14,13 +18,16 @@ namespace ControlAdapters.Configuration
 		{
 		}
 
+		/// <summary>
+		/// Gets an instance of <see cref="CheckBoxListSettings"/> providing default values.
+		/// </summary>
 		public static CheckBoxListSettings Default
 		{
 			get { return _defaultSettings; }
 		}
 
 		/// <summary>
-		/// Gets or sets the CSS class.
+		/// Gets or sets the CSS class used by the <see cref="CheckBoxListAdapter"/>.
 		/// </summary>
 		[ConfigurationProperty("cssClass", IsRequired = false)]
 		public string CssClass
@@ -36,7 +43,7 @@ namespace ControlAdapters.Configuration
 		}
 
 		/// <summary>
-		/// Gets or sets the CSS class when the control is disabled.
+		/// Gets or sets the CSS class used to mark a disabled control.
 		/// </summary>
 		[ConfigurationProperty("disabledCssClass", IsRequired = false)]
 		public string DisabledCssClass
@@ -49,38 +56,6 @@ namespace ControlAdapters.Configuration
 					return (string)base["disabledCssClass"];
 			}
 			set { base["disabledCssClass"] = value; }
-		}
-
-		/// <summary>
-		/// Gets or sets the CSS class for the control's items.
-		/// </summary>
-		[ConfigurationProperty("itemCssClass", IsRequired = false)]
-		public string ItemCssClass
-		{
-			get
-			{
-				if (base["itemCssClass"] == null)
-					return String.Empty;
-				else
-					return (string)base["itemCssClass"];
-			}
-			set { base["itemCssClass"] = value; }
-		}
-
-		/// <summary>
-		/// Gets or sets the CSS class for the control's repeat direction.
-		/// </summary>
-		[ConfigurationProperty("repeatDirectionCssClass", IsRequired = false)]
-		public string RepeatDirectionCssClass
-		{
-			get
-			{
-				if (base["repeatDirectionCssClass"] == null)
-					return String.Empty;
-				else
-					return (string)base["repeatDirectionCssClass"];
-			}
-			set { base["repeatDirectionCssClass"] = value; }
 		}
 	}
 }

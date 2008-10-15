@@ -30,6 +30,10 @@ namespace ControlAdapters.Configuration
 		{
 		}
 
+		/// <summary>
+		/// Provides access to the <see cref="CheckBoxListSettings"/>.
+		/// If no settings are defined, the default settings from <see cref="CheckBoxListSettings.Default"/> are returned.
+		/// </summary>
 		[ConfigurationProperty("CheckBoxList", IsRequired = false)]
 		public CheckBoxListSettings CheckBoxList
 		{

@@ -1,0 +1,11 @@
+﻿ul.checkBoxList {
+	list-style:none;
+	margin: 0;
+	padding: 0;
+}
+ul.checkBoxList.horizontal li {
+	display: inline;
+}
+ul.checkBoxList li.disabled {
+	color: Gray;
+}
