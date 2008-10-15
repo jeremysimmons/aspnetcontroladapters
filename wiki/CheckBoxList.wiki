@@ -15,7 +15,7 @@ The `CheckBoxList` is rendered as an unordered list (`UL`), with each checkbox i
 ASP.Net Code:
 {{{
 <asp:CheckBoxList ID="CheckBoxList1" runat="server">
-	<asp:ListItem Value="0" Text="Normal" />
+	<asp:ListItem Value="0">Normal</asp:ListItem>
 	<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
 	<asp:ListItem Value="2" Text="Selected" Selected="True" />
 	<asp:ListItem Value="NoText" />
@@ -52,11 +52,32 @@ A sample configuration follows.
 
 = Implementation Notes =
 
-== CheckBoxList Properties ==
+== Recommended Default CSS ==
+
+The following is a minimum recommended default CSS, using the sample configuration shown above.
+
+{{{
+ul.checkBoxList {
+	list-style:none;
+	margin: 0;
+	padding: 0;
+}
+ul.checkBoxList.horizontal li {
+	display: inline;
+}
+ul.checkBoxList li.disabled {
+	color: Gray;
+}
+}}}
+
+== CheckBoxList Properties Supported ==
 
 The following table outlines those properties of the `CheckBoxList` control that are implemented in the `CheckBoxListAdapter` control. Properties not listed are not supported or implemented.
 
 || *Property* || *Implementation* ||
+|| `AccessKey` || When specified, the `accesskey` attribute with this value is applied to each checkbox. ||
+|| `Attributes` || Each attribute's name/value pair is added to the unordered list. ||
+|| `AutoPostBack` || When set to `true`, each checkbox control is configured to initiate a postback event. ||
 || `ClientID` || Used as the unordered list's `id` attribute. ||
 || `CssClass` || When not null or empty, it is added to the unordered list's `class` list. ||
 || `Enabled` || When set to `false` and the default `DisabledCssClass` is specified, this class is added to the unordered list's and each list item's `class` list. ||
@@ -71,5 +92,6 @@ The following table outlines those properties of the `CheckBoxList` control's `I
 
 || *Property* || *Implementation* ||
 || `Enabled` || When disabled, the default `DisabledCssClass` is applied to the list item. ||
+|| `Selected` || When selected, the attribute `checked` is added to the checkbox with the value `checked` (this makes the checkbox . ||
 || `Text` || Used as the text of the `label` tag. If this is not used, the `Value` property is used. If neither are used, the label is not rendered. ||
 || `Value` || Used as the checkbox's `value` attribute. Note that this is not added in standard ASP.Net markup. ||
