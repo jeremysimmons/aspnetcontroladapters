@@ -20,24 +20,5 @@ namespace ControlAdapters.Adapters
 		{
 			return new CheckBoxListHtmlRenderer(this.AdaptedControl);
 		}
-
-		protected override void EndRender(HtmlTextWriter writer)
-		{
-			foreach (ListItem li in AdaptedControl.Items)
-			{
-				/*
-				if (this.Page != null)
-				{
-					Page.ClientScript.RegisterForEventValidation(checkList.UniqueID, li.Value);
-				}
-				 * */
-			}
-			/*
-			if (this.Page != null)
-			{
-				Page.ClientScript.RegisterForEventValidation(checkList.UniqueID);
-			}
-			 * */
-		}
 	}
 }
