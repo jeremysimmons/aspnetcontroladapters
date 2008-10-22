@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Web.UI;
@@ -71,6 +73,57 @@ namespace ControlAdapters.Renderers
 		/// </summary>
 		/// <returns>The generated HTML.</returns>
 		public abstract string RenderEndTag();
+
+		/// <summary>
+		/// Writes the common styles common to all web controls to the output stream.
+		/// </summary>
+		/// <param name="writer">The output stream to write to.</param>
+		public virtual void WriteStyles(HtmlTextWriter writer)
+		{
+			Dictionary<string,string> styles = CreateStyleCollection(Control.Style);
+
+			// for each strongly-typed property, override the styles
+			if (Control.BackColor != Color.Empty)
+				styles["background-color"] = ColorTranslator.ToHtml(Control.BackColor);
+			if (Control.BorderColor != Color.Empty)
+				styles["border-color"] = ColorTranslator.ToHtml(Control.BorderColor);
+			if (Control.BorderStyle != BorderStyle.NotSet)
+				styles["border-style"] = Control.BorderStyle.ToString().ToLowerInvariant();
+			if (!Control.BorderWidth.IsEmpty)
+				styles["border-width"] = Control.BorderWidth.ToString();
+			if (Control.ForeColor != Color.Empty)
+				styles["color"] = ColorTranslator.ToHtml(Control.ForeColor);
+			if (!Control.Height.IsEmpty)
+				styles["height"] = Control.Height.ToString();
+			if (!Control.Width.IsEmpty)
+				styles["width"] = Control.Width.ToString();
+
+			if (styles.Count > 0)
+			{
+				writer.Write(" style=\"");
+				foreach (KeyValuePair<string, string> pair in styles)
+				{
+					writer.WriteStyleAttribute(pair.Key, pair.Value);
+				}
+				writer.Write("\"");
+			}
+		}
+
+		/// <summary>
+		/// Creates a key/value collection of style declarations from a given source.
+		/// </summary>
+		/// <param name="collection">The source styles.</param>
+		/// <returns>A key/value representation of the input.</returns>
+		public static Dictionary<string,string> CreateStyleCollection(CssStyleCollection collection)
+		{
+			Dictionary<string, string> newColl = new Dictionary<string, string>(collection.Count);
+			foreach (string key in collection.Keys)
+			{
+				newColl.Add(key, collection[key]);
+			}
+
+			return newColl;
+		}
 
 		/// <summary>
 		/// Concatenates a series of CSS class names into a markup-friendly class list.

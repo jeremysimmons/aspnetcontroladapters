@@ -11,9 +11,16 @@
 
 		RepeatDirection rDir = (repeatDirectionOption.SelectedValue == "horizontal"
 			? RepeatDirection.Horizontal : RepeatDirection.Vertical);
-
+		RepeatLayout rLay = (repeatLayoutOption.SelectedValue == "table"
+			? RepeatLayout.Table : RepeatLayout.Flow);
+		
 		defaultCheckBoxList.RepeatDirection = rDir;
+		defaultCheckBoxList.RepeatLayout = rLay;
+		defaultCheckBoxList.AutoPostBack = autoPostBackOption.Checked;
+		
 		adaptedCheckBoxList.RepeatDirection = rDir;
+		adaptedCheckBoxList.RepeatLayout = rLay;
+		adaptedCheckBoxList.AutoPostBack = autoPostBackOption.Checked;
 
 		CheckBoxListHtmlRenderer renderer = new CheckBoxListHtmlRenderer(adaptedCheckBoxList);
 		adaptedMarkup.InnerHtml = Server.HtmlEncode(renderer.RenderBeginTag() + renderer.RenderContents() + renderer.RenderEndTag());
@@ -31,17 +38,30 @@
 				<h1>ControlAdapters CheckBoxList Adapter Tests</h1>
 
 				<h2>Markup Options</h2>
-
+				
+				<asp:Button runat="server" Text="Postback" />
+				
+				<asp:CheckBox runat="server" ID="autoPostBackOption" AutoPostBack="true" Text="Auto Postback?" />
+				
 				<asp:DropDownList runat="server" ID="repeatDirectionOption" AutoPostBack="true">
 					<asp:ListItem Value="vertical">Vertical</asp:ListItem>
 					<asp:ListItem Value="horizontal">Horizontal</asp:ListItem>
+				</asp:DropDownList>
+
+				<asp:DropDownList runat="server" ID="repeatLayoutOption" AutoPostBack="true">
+					<asp:ListItem Value="table">Table</asp:ListItem>
+					<asp:ListItem Value="flow">Flow</asp:ListItem>
 				</asp:DropDownList>
 
 				<hr />
 
 				<h2>Default ASP.Net Markup</h2>
 
-				<asp:CheckBoxList ID="defaultCheckBoxList" runat="server" AccessKey="A" CssClass="class" attrib2="test2" AutoPostBack="true">
+				<asp:CheckBoxList ID="defaultCheckBoxList" runat="server" 
+					AccessKey="A" attrib2="test2" 
+					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
+					Color="Blue" Height="200px" Width="200px"
+					CssClass="class" TabIndex="1">
 					<asp:ListItem Value="0">Normal</asp:ListItem>
 					<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
 					<asp:ListItem Value="2" Text="Selected" Selected="True" />
@@ -53,8 +73,11 @@
 
 				<h2>Adapted ASP.Net Markup</h2>
 
-				<asp:Panel runat="server" ID="defaultPostbackResult"></asp:Panel>
-				<ca:CheckBoxList ID="adaptedCheckBoxList" runat="server" AccessKey="B" CssClass="class" attrib2="test2" AutoPostBack="true">
+				<ca:CheckBoxList ID="adaptedCheckBoxList" runat="server"
+					AccessKey="B" attrib2="test2" 
+					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
+					Color="Blue" Height="200px" Width="200px"
+					CssClass="class" TabIndex="11">
 					<asp:ListItem Value="0">Normal</asp:ListItem>
 					<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
 					<asp:ListItem Value="2" Text="Selected" Selected="True" />
@@ -63,6 +86,7 @@
 				</ca:CheckBoxList>
 
 				<pre runat="server" id="adaptedMarkup"></pre>
+				
 			</div>
 		</form>
 	</body>
