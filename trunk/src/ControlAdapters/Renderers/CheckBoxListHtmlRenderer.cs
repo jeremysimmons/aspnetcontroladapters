@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ControlAdapters.Configuration;
@@ -12,6 +13,11 @@ namespace ControlAdapters.Renderers
 		{
 		}
 
+		private string OuterTag
+		{
+			get { return Control.RepeatLayout == RepeatLayout.Table ? "ul" : "span"; }
+		}
+
 		public override string RenderBeginTag()
 		{
 			HtmlTextWriter writer = GetNewHtmlTextWriter();
@@ -23,14 +29,16 @@ namespace ControlAdapters.Renderers
 			string allClasses = ConcatenateCssClasses(cssClass, repeatDirectionCssClass,
 				(Control.Enabled ? String.Empty : disabledCssClass), Control.CssClass);
 
-			writer.WriteBeginTag("ul");
+			writer.WriteBeginTag(this.OuterTag);
+			writer.WriteAttribute("id", Control.ClientID);
+
 			if (!String.IsNullOrEmpty(allClasses))
 				writer.WriteAttribute("class", allClasses);
-			writer.WriteAttribute("id", Control.ClientID);
+
 			foreach (string key in Control.Attributes.Keys)
-			{
 				writer.WriteAttribute(key, Control.Attributes[key]);
-			}
+			
+			WriteStyles(writer);
 			writer.WriteLine(HtmlTextWriter.TagRightChar);
 
 			return writer.InnerWriter.ToString();
@@ -46,11 +54,21 @@ namespace ControlAdapters.Renderers
 				string cssClass = (li.Enabled && Control.Enabled ? String.Empty : Settings.CheckBoxList.DisabledCssClass);
 
 				writer.Write("\t");
-				writer.WriteBeginTag("li");
-				if (!String.IsNullOrEmpty(cssClass))
+
+				if (Control.RepeatLayout == RepeatLayout.Table)
+				{
+					writer.WriteBeginTag("li");
+					if (!String.IsNullOrEmpty(cssClass))
+						writer.WriteAttribute("class", cssClass);
+					writer.Write(HtmlTextWriter.TagRightChar);
+				}
+				else if (!String.IsNullOrEmpty(cssClass))
+				{
+					writer.WriteBeginTag("span");
 					writer.WriteAttribute("class", cssClass);
-				writer.Write(HtmlTextWriter.TagRightChar);
-	
+					writer.Write(HtmlTextWriter.TagRightChar);
+				}
+
 				if (Control.TextAlign == TextAlign.Right)
 				{
 					RenderCheckBoxListInput(writer, li, inputID);
@@ -62,7 +80,11 @@ namespace ControlAdapters.Renderers
 					RenderCheckBoxListInput(writer, li, inputID);
 				}
 
-				writer.WriteEndTag("li");
+				if (Control.RepeatLayout == RepeatLayout.Table)
+					writer.WriteEndTag("li");
+				else if (Control.RepeatDirection = RepeatDirection.Vertical)
+					writer.Write("<br />");
+
 				writer.WriteLine();
 			}
 
@@ -97,6 +119,8 @@ namespace ControlAdapters.Renderers
 				writer.WriteAttribute("checked", "checked");
 			if (!String.IsNullOrEmpty(Control.AccessKey))
 				writer.WriteAttribute("accesskey", Control.AccessKey);
+			if (Control.TabIndex != -1)
+				writer.WriteAttribute("tabindex", Control.TabIndex.ToString());
 			if (Control.AutoPostBack)
 				writer.WriteAttribute("onclick", String.Format(@"javascript:setTimeout('__doPostBack(\'{0}\',\'\')', 0)", inputName));
 
@@ -108,7 +132,7 @@ namespace ControlAdapters.Renderers
 			HtmlTextWriter writer = GetNewHtmlTextWriter();
 
 			writer.Indent--;
-			writer.WriteEndTag("ul");
+			writer.WriteEndTag(this.OuterTag);
 			writer.WriteLine();
 
 			return writer.InnerWriter.ToString();
