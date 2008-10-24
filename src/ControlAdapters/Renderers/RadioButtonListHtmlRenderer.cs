@@ -6,9 +6,9 @@ using ControlAdapters.Configuration;
 
 namespace ControlAdapters.Renderers
 {
-	public class CheckBoxListHtmlRenderer : HtmlRenderer<CheckBoxList>
+	public class RadioButtonListHtmlRenderer : HtmlRenderer<RadioButtonList>
 	{
-		public CheckBoxListHtmlRenderer(CheckBoxList control)
+		public RadioButtonListHtmlRenderer(RadioButtonList control)
 			: base(control)
 		{
 		}
@@ -22,8 +22,8 @@ namespace ControlAdapters.Renderers
 		{
 			HtmlTextWriter writer = GetNewHtmlTextWriter();
 
-			string cssClass = Settings.CheckBoxList.CssClass;
-			string disabledCssClass = Settings.CheckBoxList.DisabledCssClass;
+			string cssClass = Settings.RadioButtonList.CssClass;
+			string disabledCssClass = Settings.RadioButtonList.DisabledCssClass;
 			string repeatDirectionCssClass = Control.RepeatDirection.ToString().ToLowerInvariant();
 
 			string allClasses = ConcatenateCssClasses(cssClass, repeatDirectionCssClass,
@@ -51,7 +51,7 @@ namespace ControlAdapters.Renderers
 			foreach (ListItem li in Control.Items)
 			{
 				string inputID = GetListItemClientID(Control, li);
-				string cssClass = (li.Enabled && Control.Enabled ? String.Empty : Settings.CheckBoxList.DisabledCssClass);
+				string cssClass = (li.Enabled && Control.Enabled ? String.Empty : Settings.RadioButtonList.DisabledCssClass);
 
 				writer.Write("\t");
 
@@ -71,13 +71,13 @@ namespace ControlAdapters.Renderers
 
 				if (Control.TextAlign == TextAlign.Right)
 				{
-					RenderCheckBoxListInput(writer, li, inputID);
-					RenderCheckBoxListLabel(writer, li, inputID);
+					RenderRadioButtonListInput(writer, li, inputID);
+					RenderRadioButtonListLabel(writer, li, inputID);
 				}
 				else // TextAlign.Left
 				{
-					RenderCheckBoxListLabel(writer, li, inputID);
-					RenderCheckBoxListInput(writer, li, inputID);
+					RenderRadioButtonListLabel(writer, li, inputID);
+					RenderRadioButtonListInput(writer, li, inputID);
 				}
 
 				if (Control.RepeatLayout == RepeatLayout.Table)
@@ -91,7 +91,7 @@ namespace ControlAdapters.Renderers
 			return writer.InnerWriter.ToString();
 		}
 
-		protected void RenderCheckBoxListLabel(HtmlTextWriter writer, ListItem li, string inputID)
+		protected void RenderRadioButtonListLabel(HtmlTextWriter writer, ListItem li, string inputID)
 		{
 			if (String.IsNullOrEmpty(li.Text) && String.IsNullOrEmpty(li.Value))
 				return;
@@ -103,13 +103,13 @@ namespace ControlAdapters.Renderers
 			writer.WriteEndTag("label");
 		}
 
-		protected void RenderCheckBoxListInput(HtmlTextWriter writer, ListItem li, string inputID)
+		protected void RenderRadioButtonListInput(HtmlTextWriter writer, ListItem li, string inputID)
 		{
-			string inputName = GetNameFromClientID(inputID);
+			string inputName = GetNameFromClientID(Control.ClientID);
 			writer.WriteBeginTag("input");
 			writer.WriteAttribute("id", inputID);
 			writer.WriteAttribute("name", inputName);
-			writer.WriteAttribute("type", "checkbox");
+			writer.WriteAttribute("type", "radio");
 			
 			if (!String.IsNullOrEmpty(li.Value))
 				writer.WriteAttribute("value", li.Value);

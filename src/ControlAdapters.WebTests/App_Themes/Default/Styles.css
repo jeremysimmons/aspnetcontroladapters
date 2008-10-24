@@ -9,3 +9,14 @@ ul.checkBoxList.horizontal li {
 ul.checkBoxList li.disabled {
 	color: Gray;
 }
+ul.radioButtonList {
+	list-style:none;
+	margin: 0;
+	padding: 0;
+}
+ul.radioButtonList.horizontal li {
+	display: inline;
+}
+ul.radioButtonList li.disabled {
+	color: Gray;
+}
