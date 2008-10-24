@@ -3,6 +3,8 @@
 		<controlAdapters>
 			<adapter controlType="ControlAdapters.WebControls.CheckBoxList"
 					 adapterType="ControlAdapters.Adapters.CheckBoxListAdapter" />
+			<adapter controlType="ControlAdapters.WebControls.RadioButtonList"
+					 adapterType="ControlAdapters.Adapters.RadioButtonListAdapter" />
 			<!--
 			Disabled adapters for default ASP.Net controls
 			

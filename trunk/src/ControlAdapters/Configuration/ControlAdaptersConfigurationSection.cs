@@ -46,5 +46,22 @@ namespace ControlAdapters.Configuration
 			}
 			set { this["CheckBoxList"] = value; }
 		}
+
+		/// <summary>
+		/// Provides access to the <see cref="RadioButtonListSettings"/>.
+		/// If no settings are defined, the default settings from <see cref="RadioButtonListSettings.Default"/> are returned.
+		/// </summary>
+		[ConfigurationProperty("RadioButtonList", IsRequired = false)]
+		public RadioButtonListSettings RadioButtonList
+		{
+			get
+			{
+				if (this["RadioButtonList"] == null)
+					return RadioButtonListSettings.Default;
+				else
+					return (RadioButtonListSettings)this["RadioButtonList"];
+			}
+			set { this["RadioButtonList"] = value; }
+		}
 	}
 }
