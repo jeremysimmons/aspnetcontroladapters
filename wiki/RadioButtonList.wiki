@@ -1,5 +1,5 @@
 #summary Rendering notes for the RadioButtonList control
-#labels radiobuttonlist,controladapter
+#labels radiobuttonlist,controladapter,Featured
 
 = Introduction =
 
