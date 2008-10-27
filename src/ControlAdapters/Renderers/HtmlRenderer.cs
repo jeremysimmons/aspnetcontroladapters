@@ -25,8 +25,11 @@ namespace ControlAdapters.Renderers
 	/// </remarks>
 	public abstract class HtmlRenderer<T> where T : WebControl
 	{
+		/// <summary>
+		/// Represents the <see cref="ControlAdaptersConfiguration"/> settings for the current application instance.
+		/// </summary>
 		protected static ControlAdaptersConfigurationSection Settings = ControlAdaptersConfiguration.Settings;
-		protected T _control;
+		private T _control;
 		
 		/// <summary>
 		/// Initializes a new instance of the class.
@@ -75,35 +78,66 @@ namespace ControlAdapters.Renderers
 		public abstract string RenderEndTag();
 
 		/// <summary>
-		/// Writes the common styles common to all web controls to the output stream.
+		/// Adds the default properties and attributes for a given control to a given attribute collection.
+		/// </summary>
+		/// <param name="control">The web control.</param>
+		/// <param name="attributes">The collection of attributes.</param>
+		/// <returns>The updated collection.</returns>
+		public static AttributeCollection AddWebControlProperties(WebControl control, AttributeCollection attributes)
+		{
+			if (attributes == null)
+				throw new ArgumentNullException("attributes");
+
+			CssStyleCollection styles = attributes.CssStyle;
+
+			if (control.BackColor != Color.Empty)
+				styles["background-color"] = ColorTranslator.ToHtml(control.BackColor);
+			if (control.BorderColor != Color.Empty)
+				styles["border-color"] = ColorTranslator.ToHtml(control.BorderColor);
+			if (control.BorderStyle != BorderStyle.NotSet)
+				styles["border-style"] = control.BorderStyle.ToString().ToLowerInvariant();
+			if (!control.BorderWidth.IsEmpty)
+				styles["border-width"] = control.BorderWidth.ToString();
+			if (control.ForeColor != Color.Empty)
+				styles["color"] = ColorTranslator.ToHtml(control.ForeColor);
+			if (!control.Height.IsEmpty)
+				styles["height"] = control.Height.ToString();
+			if (!control.Width.IsEmpty)
+				styles["width"] = control.Width.ToString();
+
+			foreach (string key in control.Attributes.Keys)
+				attributes.Add(key, control.Attributes[key]);
+
+			return attributes;
+		}
+
+		/// <summary>
+		/// Writes a collection of attributes to the output stream.
 		/// </summary>
 		/// <param name="writer">The output stream to write to.</param>
-		public virtual void WriteStyles(HtmlTextWriter writer)
+		/// <param name="attributes">The collection of attributes.</param>
+		public static void WriteAttributes(HtmlTextWriter writer, AttributeCollection attributes)
 		{
-			Dictionary<string,string> styles = CreateStyleCollection(Control.Style);
+			if (attributes.Count > 0)
+			{
+				foreach (string key in attributes.Keys)
+					writer.WriteAttribute(key, attributes[key]);
+			}
+		}
 
-			// for each strongly-typed property, override the styles
-			if (Control.BackColor != Color.Empty)
-				styles["background-color"] = ColorTranslator.ToHtml(Control.BackColor);
-			if (Control.BorderColor != Color.Empty)
-				styles["border-color"] = ColorTranslator.ToHtml(Control.BorderColor);
-			if (Control.BorderStyle != BorderStyle.NotSet)
-				styles["border-style"] = Control.BorderStyle.ToString().ToLowerInvariant();
-			if (!Control.BorderWidth.IsEmpty)
-				styles["border-width"] = Control.BorderWidth.ToString();
-			if (Control.ForeColor != Color.Empty)
-				styles["color"] = ColorTranslator.ToHtml(Control.ForeColor);
-			if (!Control.Height.IsEmpty)
-				styles["height"] = Control.Height.ToString();
-			if (!Control.Width.IsEmpty)
-				styles["width"] = Control.Width.ToString();
-
+		/// <summary>
+		/// Writes a collection of styles to the output stream.
+		/// </summary>
+		/// <param name="writer">The output stream to write to.</param>
+		/// <param name="styles">The collection of styles.</param>
+		public static void WriteStyles(HtmlTextWriter writer, CssStyleCollection styles)
+		{
 			if (styles.Count > 0)
 			{
 				writer.Write(" style=\"");
-				foreach (KeyValuePair<string, string> pair in styles)
+				foreach (string key in styles.Keys)
 				{
-					writer.WriteStyleAttribute(pair.Key, pair.Value);
+					writer.WriteStyleAttribute(key, styles[key]);
 				}
 				writer.Write("\"");
 			}
