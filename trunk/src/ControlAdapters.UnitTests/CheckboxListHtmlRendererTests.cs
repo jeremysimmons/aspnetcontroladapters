@@ -29,7 +29,7 @@ namespace ControlAdapters.UnitTests
 			CheckBoxListHtmlRenderer renderer = new CheckBoxListHtmlRenderer(control);
 
 			Assert.AreEqual(renderer.RenderBeginTag(),
-				"<ul class=\"checkBoxList vertical\" id=\"test\">\r\n");
+				"<ul id=\"test\" class=\"checkBoxList vertical\">\r\n");
 
 			Assert.AreEqual(renderer.RenderContents(),
 				"\t<li><input id=\"test_0\" name=\"test$0\" type=\"checkbox\" value=\"value1\" /><label for=\"test_0\">item1</label></li>\r\n");
