@@ -60,7 +60,7 @@
 				<asp:RadioButtonList ID="defaultRadioButtonList" runat="server" 
 					AccessKey="A" attrib2="test2" 
 					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
-					Color="Blue" Height="200px" Width="200px"
+					ForeColor="Blue" Height="200px" Width="200px"
 					CssClass="class" TabIndex="1">
 					<asp:ListItem Value="0">Normal</asp:ListItem>
 					<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
@@ -76,7 +76,7 @@
 				<ca:RadioButtonList ID="adaptedRadioButtonList" runat="server"
 					AccessKey="B" attrib2="test2" 
 					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
-					Color="Blue" Height="200px" Width="200px"
+					ForeColor="Blue" Height="200px" Width="200px"
 					CssClass="class" TabIndex="11">
 					<asp:ListItem Value="0">Normal</asp:ListItem>
 					<asp:ListItem Value="1" Text="Disabled" Enabled="false" />

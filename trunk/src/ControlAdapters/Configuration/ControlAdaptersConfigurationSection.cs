@@ -63,5 +63,22 @@ namespace ControlAdapters.Configuration
 			}
 			set { this["RadioButtonList"] = value; }
 		}
+
+		/// <summary>
+		/// Provides access to the <see cref="MenuSettings"/>.
+		/// If no settings are defined, the default settings from <see cref="MenuSettings.Default"/> are returned.
+		/// </summary>
+		[ConfigurationProperty("Menu", IsRequired = false)]
+		public MenuSettings Menu
+		{
+			get
+			{
+				if (this["Menu"] == null)
+					return MenuSettings.Default;
+				else
+					return (MenuSettings)this["Menu"];
+			}
+			set { this["Menu"] = value; }
+		}
 	}
 }
