@@ -57,6 +57,7 @@
   <ItemGroup>
     <Content Include="App_Browsers\ControlAdapters.browser" />
     <Content Include="App_Themes\Default\Styles.css" />
+    <Content Include="Menu.aspx" />
     <Content Include="RadioButtonList.aspx" />
   </ItemGroup>
   <ItemGroup>
