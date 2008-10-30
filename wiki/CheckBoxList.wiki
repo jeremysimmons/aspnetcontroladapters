@@ -103,7 +103,7 @@ The following table outlines those properties of the `CheckBoxList` control that
 || `ClientID` || Full || Used as the unordered list's `id` attribute. ||
 || `CssClass` || Full || When not null or empty, it is added to the unordered list's `class` list. ||
 || `Enabled` || Full || When set to `false` and the default `DisabledCssClass` is specified, this class is added to the unordered list's and each list item's `class` list. ||
-|| `ForeColor` || Full || When set other than `Color.Empty`, it is added to the `color` attribute of the outer `ul` or `span`. Note that this is not preferred, but it is how the ASP.Net rendering engine renders the `color` style. ||
+|| `ForeColor` || Full || When set other than `Color.Empty`, it is added to the `style` style of the outer `ul` or `span`. ||
 || `Height` || Full || When set other than `Unit.Empty`, it is added to the `style` attribute of the outer `ul` or `span`. ||
 || `Items` || Full || All items in the control are rendered. Items which are disabled have the default `DisabledCssClass` applied to the appropriate list item element. ||
 || `RepeatDirection` || Full || A lower-case string representation of `RepeatDirection` (i.e. `horizontal` or `vertical` is added as a CSS class in the unordered list's `class` list. In block layout mode (`RepeatLayout.Table`), this adds the CSS class `horizontal` or `vertical` to the outer `ul` tag. In flow layout mode (`RepeatLayout.Flow`), if set to `Vertical`, a line break (`br` tag) is added after each checkbox/label combination. ||
