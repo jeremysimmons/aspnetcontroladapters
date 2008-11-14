@@ -9,6 +9,10 @@
 		defaultMenu.Attributes["attrib1"] = "test1";
 		adaptedMenu.Attributes["attrib1"] = "test1";
 
+		Orientation orientation = (orientationOption.SelectedValue == "horizontal" ? Orientation.Horizontal : Orientation.Vertical);
+		defaultMenu.Orientation = orientation;
+		adaptedMenu.Orientation = orientation;
+
 		MenuHtmlRenderer renderer = new MenuHtmlRenderer(adaptedMenu);
 		adaptedMarkup.InnerHtml = Server.HtmlEncode(renderer.RenderBeginTag() + renderer.RenderContents() + renderer.RenderEndTag());
 	}
@@ -26,6 +30,11 @@
 
 				<h2>Markup Options</h2>
 				
+				<asp:DropDownList runat="server" ID="orientationOption" AutoPostBack="true">
+					<asp:ListItem Value="vertical">Vertical</asp:ListItem>
+					<asp:ListItem Value="horizontal">Horizontal</asp:ListItem>
+				</asp:DropDownList>
+				
 				<asp:Button runat="server" Text="Postback" />
 
 				<hr />
@@ -35,12 +44,21 @@
 				<asp:Menu ID="defaultMenu" runat="server" 
 					AccessKey="A" attrib2="test2" 
 					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
-					ForeColor="Blue" Height="200px" Width="200px"
+					ForeColor="Blue"
 					CssClass="class" TabIndex="1">
 					<Items>
 						<asp:MenuItem Value="0" Text="Normal" ToolTip="ToolTip" />
 						<asp:MenuItem Value="1" Text="Disabled" Enabled="false" />
 						<asp:MenuItem Value="2" Text="Selected" Selected="true" />
+						<asp:MenuItem Value="3" Text="Submenus">
+							<asp:MenuItem Value="4" Text="SubItem1" />
+							<asp:MenuItem Value="5" Text="SubItem2">
+								<asp:MenuItem value="6" Text="EvenDeeper1" />
+								<asp:MenuItem Value="7" Text="EvenDeeper2" />
+							</asp:MenuItem>
+							<asp:MenuItem Value="8" Text="SubItem3" />
+							
+						</asp:MenuItem>
 						<asp:MenuItem Value="NoText" />
 						<asp:MenuItem />
 					</Items>
@@ -53,12 +71,21 @@
 				<ca:Menu ID="adaptedMenu" runat="server"
 					AccessKey="B" attrib2="test2" 
 					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
-					ForeColor="Blue" Height="200px" Width="200px"
+					ForeColor="Blue"
 					CssClass="class" TabIndex="11">
 					<Items>
 						<asp:MenuItem Value="0" Text="Normal" ToolTip="ToolTip" />
 						<asp:MenuItem Value="1" Text="Disabled" Enabled="false" />
 						<asp:MenuItem Value="2" Text="Selected" Selected="true" />
+						<asp:MenuItem Value="3" Text="Submenus">
+							<asp:MenuItem Value="4" Text="SubItem1" />
+							<asp:MenuItem Value="5" Text="SubItem2">
+								<asp:MenuItem value="6" Text="EvenDeeper1" />
+								<asp:MenuItem Value="7" Text="EvenDeeper2" />
+							</asp:MenuItem>
+							<asp:MenuItem Value="8" Text="SubItem3" />
+							
+						</asp:MenuItem>
 						<asp:MenuItem Value="NoText" />
 						<asp:MenuItem />
 					</Items>
