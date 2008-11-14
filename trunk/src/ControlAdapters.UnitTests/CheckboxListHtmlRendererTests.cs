@@ -10,32 +10,113 @@ namespace ControlAdapters.UnitTests
 	[TestFixture]
 	public class CheckboxListHtmlRendererTests
 	{
-		private StringWriter stringwriter;
-		private HtmlTextWriter htmlwriter;
+		private HtmlTextWriter writer;
+		private CheckBoxList control;
+		private ListItem listItem;
+		private CheckBoxListHtmlRenderer renderer;
 
 		[SetUp]
 		public void SetUp()
 		{
-			stringwriter = new StringWriter();
-			htmlwriter = new HtmlTextWriter(stringwriter);
+			writer = new HtmlTextWriter(new StringWriter());
+			control = new CheckBoxList();
+			control.ID = "checkbox";
+			listItem = new ListItem();
+			control.Items.Add(listItem);
+			renderer = new CheckBoxListHtmlRenderer(control);
 		}
 
 		[Test]
-		public void TestValidHtml()
+		public void RendersRequiredCheckBoxAttributes()
 		{
-			CheckBoxList control = new CheckBoxList();
-			control.ID = "test";
-			control.Items.Add(new ListItem("item1", "value1"));
-			CheckBoxListHtmlRenderer renderer = new CheckBoxListHtmlRenderer(control);
+			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
 
-			Assert.AreEqual(renderer.RenderBeginTag(),
-				"<ul id=\"test\" class=\"checkBoxList vertical\">\r\n");
+			Assert.AreEqual("<input id=\"checkbox_0\" name=\"checkbox$0\" type=\"checkbox\" />", writer.InnerWriter.ToString(),
+				"checkbox required attributes not rendered properly");
+		}
 
-			Assert.AreEqual(renderer.RenderContents(),
-				"\t<li><input id=\"test_0\" name=\"test$0\" type=\"checkbox\" value=\"value1\" /><label for=\"test_0\">item1</label></li>\r\n");
+		[Test]
+		public void RendersValue()
+		{
+			listItem.Value = "test";
+			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
 
-			Assert.AreEqual(renderer.RenderEndTag(),
-				"</ul>\r\n");
+			Assert.IsTrue(writer.InnerWriter.ToString().Contains("value=\"test\""), "list item value not rendered");
+		}
+
+		[Test]
+		public void RendersDisabled()
+		{
+			listItem.Enabled = false;
+			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+
+			Assert.IsTrue(writer.InnerWriter.ToString().Contains("disabled=\"disabled\""), "disabled attribute not rendered");
+		}
+
+		[Test]
+		public void RendersChecked()
+		{
+			listItem.Selected = true;
+			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+
+			Assert.IsTrue(writer.InnerWriter.ToString().Contains("checked=\"checked\""), "checked attribute not rendered");
+		}
+
+		[Test]
+		public void RendersAccessKey()
+		{
+			control.AccessKey = "C";
+			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+
+			Assert.IsTrue(writer.InnerWriter.ToString().Contains("accesskey=\"C\""), "accesskey attribute not rendered");
+		}
+
+		[Test]
+		public void RendersTabIndex()
+		{
+			control.TabIndex = 4;
+			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+
+			Assert.IsTrue(writer.InnerWriter.ToString().Contains("tabindex=\"4\""), "tabindex attribute not rendered");
+		}
+
+		[Test]
+		public void RendersPostBackHandler()
+		{
+			control.AutoPostBack = true;
+			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+
+			Assert.IsTrue(writer.InnerWriter.ToString().Contains("onclick=\"javascript:setTimeout('__doPostBack(\\'checkbox$0\\',\\'\\')', 0)\""), "postback handler not rendered");
+		}
+
+		[Test]
+		public void RendersLabelWithText()
+		{
+			listItem.Text = "text";
+			listItem.Value = "value";
+			renderer.RenderCheckBoxListLabel(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+
+			Assert.AreEqual("<label for=\"checkbox_0\">text</label>", writer.InnerWriter.ToString(), "label not rendered properly");
+		}
+
+		[Test]
+		public void RendersLabelWithValue()
+		{
+			listItem.Text = String.Empty;
+			listItem.Value = "value";
+			renderer.RenderCheckBoxListLabel(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+
+			Assert.AreEqual("<label for=\"checkbox_0\">value</label>", writer.InnerWriter.ToString(), "label not rendered properly");
+		}
+
+		[Test]
+		public void RendersNoLabelWhenTextAndValueAreEmpty()
+		{
+			listItem.Text = String.Empty;
+			listItem.Value = String.Empty;
+			renderer.RenderCheckBoxListLabel(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+
+			Assert.AreEqual(String.Empty, writer.InnerWriter.ToString(), "label not rendered properly");
 		}
 	}
 }

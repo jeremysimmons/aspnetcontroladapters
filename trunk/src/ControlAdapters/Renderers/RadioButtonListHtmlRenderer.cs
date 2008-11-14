@@ -51,7 +51,7 @@ namespace ControlAdapters.Renderers
 			if (!String.IsNullOrEmpty(allClasses))
 				attributes.Add("class", allClasses);
 
-			AddWebControlProperties(Control, attributes);
+			AddDefautAttributesToCollection(Control, attributes);
 			WriteAttributes(writer, attributes);
 
 			writer.WriteLine(HtmlTextWriter.TagRightChar);

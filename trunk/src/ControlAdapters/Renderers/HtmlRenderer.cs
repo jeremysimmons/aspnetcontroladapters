@@ -83,7 +83,7 @@ namespace ControlAdapters.Renderers
 		/// <param name="control">The web control.</param>
 		/// <param name="attributes">The collection of attributes.</param>
 		/// <returns>The updated collection.</returns>
-		public static AttributeCollection AddWebControlProperties(WebControl control, AttributeCollection attributes)
+		public static AttributeCollection AddDefautAttributesToCollection(WebControl control, AttributeCollection attributes)
 		{
 			if (attributes == null)
 				throw new ArgumentNullException("attributes");
@@ -121,7 +121,9 @@ namespace ControlAdapters.Renderers
 			if (attributes.Count > 0)
 			{
 				foreach (string key in attributes.Keys)
+				{
 					writer.WriteAttribute(key, attributes[key]);
+				}
 			}
 		}
 
@@ -137,26 +139,10 @@ namespace ControlAdapters.Renderers
 				writer.Write(" style=\"");
 				foreach (string key in styles.Keys)
 				{
-					writer.WriteStyleAttribute(key, styles[key]);
+					writer.WriteStyleAttribute(key, styles[key], true);
 				}
 				writer.Write("\"");
 			}
-		}
-
-		/// <summary>
-		/// Creates a key/value collection of style declarations from a given source.
-		/// </summary>
-		/// <param name="collection">The source styles.</param>
-		/// <returns>A key/value representation of the input.</returns>
-		public static Dictionary<string,string> CreateStyleCollection(CssStyleCollection collection)
-		{
-			Dictionary<string, string> newColl = new Dictionary<string, string>(collection.Count);
-			foreach (string key in collection.Keys)
-			{
-				newColl.Add(key, collection[key]);
-			}
-
-			return newColl;
 		}
 
 		/// <summary>

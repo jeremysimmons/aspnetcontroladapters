@@ -51,7 +51,7 @@ namespace ControlAdapters.Renderers
 			if (!String.IsNullOrEmpty(allClasses))
 				attributes.Add("class", allClasses);
 
-			AddWebControlProperties(Control, attributes);
+			AddDefautAttributesToCollection(Control, attributes);
 			WriteAttributes(writer, attributes);
 
 			writer.WriteLine(HtmlTextWriter.TagRightChar);
@@ -124,7 +124,7 @@ namespace ControlAdapters.Renderers
 		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use to generate HTML.</param>
 		/// <param name="li">The <see cref="ListItem"/> representing the input control this label is for.</param>
 		/// <param name="inputID">The HTML ID of the input control this label is for.</param>
-		protected void RenderCheckBoxListLabel(HtmlTextWriter writer, ListItem li, string inputID)
+		public void RenderCheckBoxListLabel(HtmlTextWriter writer, ListItem li, string inputID)
 		{
 			if (String.IsNullOrEmpty(li.Text) && String.IsNullOrEmpty(li.Value))
 				return;
@@ -142,7 +142,7 @@ namespace ControlAdapters.Renderers
 		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use to generate HTML.</param>
 		/// <param name="li">The <see cref="ListItem"/> representing the input control.</param>
 		/// <param name="inputID">The HTML ID of the input control.</param>
-		protected void RenderCheckBoxListInput(HtmlTextWriter writer, ListItem li, string inputID)
+		public void RenderCheckBoxListInput(HtmlTextWriter writer, ListItem li, string inputID)
 		{
 			string inputName = GetNameFromClientID(inputID);
 			writer.WriteBeginTag("input");
