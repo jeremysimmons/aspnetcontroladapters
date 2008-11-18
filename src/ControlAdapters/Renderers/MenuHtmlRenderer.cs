@@ -24,7 +24,7 @@ namespace ControlAdapters.Renderers
 		/// <returns>The beginning tag HTML code.</returns>
 		public override string RenderBeginTag()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 			AttributeCollection attributes = new AttributeCollection(new StateBag(true));
 
 			string cssClass = Settings.Menu.CssClass;
@@ -56,11 +56,11 @@ namespace ControlAdapters.Renderers
 		/// <returns>The inner HTML code representing the adapted control.</returns>
 		public override string RenderContents()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 
 			foreach (MenuItem item in Control.Items)
 			{
-				RenderMenuItem(writer, item);
+				RenderMenuItem(writer, item, 1);
 			}
 
 			return writer.InnerWriter.ToString();
@@ -71,7 +71,7 @@ namespace ControlAdapters.Renderers
 		/// </summary>
 		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use to generate HTML.</param>
 		/// <param name="item">The menu item to render.</param>
-		protected void RenderMenuItem(HtmlTextWriter writer, MenuItem item)
+		protected void RenderMenuItem(HtmlTextWriter writer, MenuItem item, int level)
 		{
 			bool enabled = (item.Enabled && Control.Enabled);
 			string cssClass = (enabled ? String.Empty : Settings.Menu.DisabledCssClass);
@@ -96,14 +96,17 @@ namespace ControlAdapters.Renderers
 
 			writer.WriteEndTag("a");
 
-			if (item.ChildItems != null && item.ChildItems.Count > 0)
+			if (item.ChildItems != null && item.ChildItems.Count > 0 && level < (Control.StaticDisplayLevels + Control.MaximumDynamicDisplayLevels))
 			{
-				writer.WriteFullBeginTag("ul");
+				writer.WriteBeginTag("ul");
+				if (level >= Control.StaticDisplayLevels)
+					writer.WriteAttribute("class", "dynamic");
+				writer.Write(HtmlTextWriter.TagRightChar);
 				writer.WriteLine();
 				writer.Indent++;
 
 				foreach (MenuItem innerItem in item.ChildItems)
-					RenderMenuItem(writer, innerItem);
+					RenderMenuItem(writer, innerItem, level + 1);
 
 				writer.Indent--;
 				writer.WriteEndTag("ul");
@@ -120,7 +123,7 @@ namespace ControlAdapters.Renderers
 		/// <returns>The ending tag HTML code.</returns>
 		public override string RenderEndTag()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 
 			writer.Indent--;
 			writer.WriteEndTag("ul");

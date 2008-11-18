@@ -27,9 +27,15 @@ ul.menu, ul.menu ul {
 	margin: 0;
 	padding: 0;
 }
+ul.dynamic {
+	display: none;
+}
 ul.menu.horizontal ul {
 	display: inline;
 }
 ul.menu.horizontal li {
 	display: inline;
+}
+ul.menu ul {
+	margin-left: 20px;
 }

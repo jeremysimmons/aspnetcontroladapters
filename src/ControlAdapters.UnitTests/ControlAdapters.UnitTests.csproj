@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CheckboxListHtmlRendererTests.cs" />
     <Compile Include="ConfigurationTests.cs" />
+    <Compile Include="RadioButtonListHtmlRendererTests.cs" />
     <Compile Include="HtmlRendererTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

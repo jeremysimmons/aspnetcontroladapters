@@ -39,20 +39,20 @@
 
 				<h2>Markup Options</h2>
 				
-				<asp:Button runat="server" Text="Postback" />
+				<asp:CheckBox runat="server" ID="autoPostBackOption" Text="Auto Postback?" />
 				
-				<asp:CheckBox runat="server" ID="autoPostBackOption" AutoPostBack="true" Text="Auto Postback?" />
-				
-				<asp:DropDownList runat="server" ID="repeatDirectionOption" AutoPostBack="true">
+				<asp:DropDownList runat="server" ID="repeatDirectionOption">
 					<asp:ListItem Value="vertical">Vertical</asp:ListItem>
 					<asp:ListItem Value="horizontal">Horizontal</asp:ListItem>
 				</asp:DropDownList>
 
-				<asp:DropDownList runat="server" ID="repeatLayoutOption" AutoPostBack="true">
+				<asp:DropDownList runat="server" ID="repeatLayoutOption">
 					<asp:ListItem Value="table">Table</asp:ListItem>
 					<asp:ListItem Value="flow">Flow</asp:ListItem>
 				</asp:DropDownList>
 
+				<asp:Button ID="Button1" runat="server" Text="Postback" />
+				
 				<hr />
 
 				<h2>Default ASP.Net Markup</h2>

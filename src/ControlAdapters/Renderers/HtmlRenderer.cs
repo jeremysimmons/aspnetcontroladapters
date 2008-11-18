@@ -229,7 +229,7 @@ namespace ControlAdapters.Renderers
 		/// Returns a new <see cref="HtmlTextWriter"/> for use in rendering output.
 		/// </summary>
 		/// <returns>A new <see cref="HtmlTextWriter"/>.</returns>
-		protected static HtmlTextWriter GetNewHtmlTextWriter()
+		public static HtmlTextWriter CreateHtmlTextWriter()
 		{
 			return new HtmlTextWriter(new StringWriter());
 		}

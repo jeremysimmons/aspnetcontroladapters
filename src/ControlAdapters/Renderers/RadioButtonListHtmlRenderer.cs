@@ -23,7 +23,7 @@ namespace ControlAdapters.Renderers
 		/// <summary>
 		/// Gets the appropriate outer tag name, based on the control's <see cref="RepeatLayout"/> property.
 		/// </summary>
-		private string OuterTag
+		public string OuterTag
 		{
 			get { return Control.RepeatLayout == RepeatLayout.Table ? "ul" : "span"; }
 		}
@@ -35,7 +35,7 @@ namespace ControlAdapters.Renderers
 		/// <returns>The beginning tag HTML code.</returns>
 		public override string RenderBeginTag()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 			AttributeCollection attributes = new AttributeCollection(new StateBag(true));
 
 			string cssClass = Settings.RadioButtonList.CssClass;
@@ -65,7 +65,7 @@ namespace ControlAdapters.Renderers
 		/// <returns>The inner HTML code representing the adapted control.</returns>
 		public override string RenderContents()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 
 			foreach (ListItem li in Control.Items)
 			{
@@ -124,7 +124,7 @@ namespace ControlAdapters.Renderers
 		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use to generate HTML.</param>
 		/// <param name="li">The <see cref="ListItem"/> representing the input control this label is for.</param>
 		/// <param name="inputID">The HTML ID of the input control this label is for.</param>
-		protected void RenderRadioButtonListLabel(HtmlTextWriter writer, ListItem li, string inputID)
+		public void RenderRadioButtonListLabel(HtmlTextWriter writer, ListItem li, string inputID)
 		{
 			if (String.IsNullOrEmpty(li.Text) && String.IsNullOrEmpty(li.Value))
 				return;
@@ -142,12 +142,12 @@ namespace ControlAdapters.Renderers
 		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use to generate HTML.</param>
 		/// <param name="li">The <see cref="ListItem"/> representing the input control.</param>
 		/// <param name="inputID">The HTML ID of the input control.</param>
-		protected void RenderRadioButtonListInput(HtmlTextWriter writer, ListItem li, string inputID)
+		public void RenderRadioButtonListInput(HtmlTextWriter writer, ListItem li, string inputID)
 		{
-			string inputName = GetNameFromClientID(Control.ClientID);
+			string inputName = GetNameFromClientID(inputID);
 			writer.WriteBeginTag("input");
 			writer.WriteAttribute("id", inputID);
-			writer.WriteAttribute("name", inputName);
+			writer.WriteAttribute("name", GetNameFromClientID(Control.ClientID));
 			writer.WriteAttribute("type", "radio");
 			
 			if (!String.IsNullOrEmpty(li.Value))
@@ -173,7 +173,7 @@ namespace ControlAdapters.Renderers
 		/// <returns>The ending tag HTML code.</returns>
 		public override string RenderEndTag()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 
 			writer.Indent--;
 			writer.WriteEndTag(this.OuterTag);
