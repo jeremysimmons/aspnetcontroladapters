@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using NUnit.Framework;
@@ -155,6 +156,39 @@ namespace ControlAdapters.Tests
 			MockRenderer.WriteAttributes(writer, attributes);
 
 			Assert.AreEqual(" style=\"background-color:Black;\" someattrib=\"somevalue\"", writer.InnerWriter.ToString());
+		}
+
+		[Test]
+		public void ConcatenateCssClassTests()
+		{
+			//normal
+			Assert.AreEqual("test1 test2 test3",
+				MockRenderer.ConcatenateCssClasses("test1", "test2", "test3"),
+				"CSS classes not properly concatenated");
+
+			//with spaces
+			Assert.AreEqual(" test1   test2 test3 ",
+				MockRenderer.ConcatenateCssClasses(" test1 ", " test2", "test3 "),
+				"CSS classes not properly concatenated");
+
+			//null strings
+			Assert.AreEqual("test1 test3",
+				MockRenderer.ConcatenateCssClasses("test1", null, "test3"),
+				"CSS classes not properly concatenated");
+
+			//empty strings
+			Assert.AreEqual("test2",
+				MockRenderer.ConcatenateCssClasses(String.Empty, "test2", ""),
+				"CSS classes not properly concatenated");
+		}
+
+		[Test]
+		public void CanCreateNewHtmlTextWriter()
+		{
+			HtmlTextWriter writer = MockRenderer.CreateHtmlTextWriter();
+
+			Assert.IsNotNull(writer, "Unable to create HtmlTextWriter");
+			Assert.IsInstanceOfType(typeof(StringWriter), writer.InnerWriter, "HtmlTextWriter's inner writer is not StringWriter");
 		}
 	}
 }

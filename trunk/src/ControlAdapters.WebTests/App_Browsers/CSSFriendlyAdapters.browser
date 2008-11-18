@@ -1,8 +1,0 @@
-﻿<browsers>
-	<browser refID="Default">
-		<controlAdapters>
-			<adapter controlType="System.Web.UI.WebControls.CheckBoxList"
-					 adapterType="CSSFriendly.Adapters.CheckBoxListAdapter" />
-		</controlAdapters>
-	</browser>
-</browsers>

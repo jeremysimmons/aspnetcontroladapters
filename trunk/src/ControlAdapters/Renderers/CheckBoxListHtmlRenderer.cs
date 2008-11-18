@@ -23,7 +23,7 @@ namespace ControlAdapters.Renderers
 		/// <summary>
 		/// Gets the appropriate outer tag name, based on the control's <see cref="RepeatLayout"/> property.
 		/// </summary>
-		private string OuterTag
+		public string OuterTag
 		{
 			get { return Control.RepeatLayout == RepeatLayout.Table ? "ul" : "span"; }
 		}
@@ -35,7 +35,7 @@ namespace ControlAdapters.Renderers
 		/// <returns>The beginning tag HTML code.</returns>
 		public override string RenderBeginTag()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 			AttributeCollection attributes = new AttributeCollection(new StateBag(true));
 
 			string cssClass = Settings.CheckBoxList.CssClass;
@@ -65,7 +65,7 @@ namespace ControlAdapters.Renderers
 		/// <returns>The inner HTML code representing the adapted control.</returns>
 		public override string RenderContents()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 
 			foreach (ListItem li in Control.Items)
 			{
@@ -173,7 +173,7 @@ namespace ControlAdapters.Renderers
 		/// <returns>The ending tag HTML code.</returns>
 		public override string RenderEndTag()
 		{
-			HtmlTextWriter writer = GetNewHtmlTextWriter();
+			HtmlTextWriter writer = CreateHtmlTextWriter();
 
 			writer.Indent--;
 			writer.WriteEndTag(this.OuterTag);

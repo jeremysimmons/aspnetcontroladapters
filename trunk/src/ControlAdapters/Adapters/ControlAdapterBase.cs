@@ -45,8 +45,6 @@ namespace ControlAdapters.Adapters
 		{
 			if (HtmlRenderer == null)
 				HtmlRenderer = CreateHtmlRenderer();
-
-			base.OnPreRender(e);
 		}
 
 		/// <summary>

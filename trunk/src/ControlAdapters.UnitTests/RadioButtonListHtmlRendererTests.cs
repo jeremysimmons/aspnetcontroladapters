@@ -8,24 +8,24 @@ using ControlAdapters.Renderers;
 namespace ControlAdapters.UnitTests
 {
 	[TestFixture]
-	public class CheckBoxListHtmlRendererTests
+	public class RadioButtonListHtmlRendererTests
 	{
 		private HtmlTextWriter writer;
-		private CheckBoxList control;
+		private RadioButtonList control;
 		private ListItem listItem;
-		private CheckBoxListHtmlRenderer renderer;
+		private RadioButtonListHtmlRenderer renderer;
 
 		[SetUp]
 		public void SetUp()
 		{
 			writer = new HtmlTextWriter(new StringWriter());
-			control = new CheckBoxList();
-			control.ID = "checkbox";
+			control = new RadioButtonList();
+			control.ID = "radiobutton";
 			control.CssClass = "someclass";
 			control.RepeatDirection = RepeatDirection.Horizontal;
 			listItem = new ListItem();
 			control.Items.Add(listItem);
-			renderer = new CheckBoxListHtmlRenderer(control);
+			renderer = new RadioButtonListHtmlRenderer(control);
 		}
 
 		[Test]
@@ -44,13 +44,13 @@ namespace ControlAdapters.UnitTests
 		[Test]
 		public void RendersBeginTagID()
 		{
-			Assert.That(renderer.RenderBeginTag().Contains(" id=\"checkbox\""), "ID attribute not included in begin tag");
+			Assert.That(renderer.RenderBeginTag().Contains(" id=\"radiobutton\""), "ID attribute not included in begin tag");
 		}
 
 		[Test]
 		public void RendersBeginTagClasses()
 		{
-			Assert.That(renderer.RenderBeginTag().Contains(" class=\"checkBoxList horizontal someclass\""), "CSS classes not included in begin tag");
+			Assert.That(renderer.RenderBeginTag().Contains(" class=\"radioButtonList horizontal someclass\""), "CSS classes not included in begin tag");
 		}
 
 		[Test]
@@ -91,19 +91,19 @@ namespace ControlAdapters.UnitTests
 		}
 
 		[Test]
-		public void RendersRequiredCheckBoxAttributes()
+		public void RendersRequiredRadioButtonAttributes()
 		{
-			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListInput(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
-			Assert.AreEqual("<input id=\"checkbox_0\" name=\"checkbox$0\" type=\"checkbox\" />", writer.InnerWriter.ToString(),
-				"checkbox required attributes not rendered properly");
+			Assert.AreEqual("<input id=\"radiobutton_0\" name=\"radiobutton\" type=\"radio\" />", writer.InnerWriter.ToString(),
+				"radio button required attributes not rendered properly");
 		}
 
 		[Test]
 		public void RendersValue()
 		{
 			listItem.Value = "test";
-			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListInput(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
 			Assert.IsTrue(writer.InnerWriter.ToString().Contains("value=\"test\""), "list item value not rendered");
 		}
@@ -112,7 +112,7 @@ namespace ControlAdapters.UnitTests
 		public void RendersDisabled()
 		{
 			listItem.Enabled = false;
-			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListInput(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
 			Assert.IsTrue(writer.InnerWriter.ToString().Contains("disabled=\"disabled\""), "disabled attribute not rendered");
 		}
@@ -121,7 +121,7 @@ namespace ControlAdapters.UnitTests
 		public void RendersChecked()
 		{
 			listItem.Selected = true;
-			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListInput(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
 			Assert.IsTrue(writer.InnerWriter.ToString().Contains("checked=\"checked\""), "checked attribute not rendered");
 		}
@@ -130,7 +130,7 @@ namespace ControlAdapters.UnitTests
 		public void RendersAccessKey()
 		{
 			control.AccessKey = "C";
-			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListInput(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
 			Assert.IsTrue(writer.InnerWriter.ToString().Contains("accesskey=\"C\""), "accesskey attribute not rendered");
 		}
@@ -139,7 +139,7 @@ namespace ControlAdapters.UnitTests
 		public void RendersTabIndex()
 		{
 			control.TabIndex = 4;
-			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListInput(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
 			Assert.IsTrue(writer.InnerWriter.ToString().Contains("tabindex=\"4\""), "tabindex attribute not rendered");
 		}
@@ -148,9 +148,9 @@ namespace ControlAdapters.UnitTests
 		public void RendersPostBackHandler()
 		{
 			control.AutoPostBack = true;
-			renderer.RenderCheckBoxListInput(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListInput(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
-			Assert.IsTrue(writer.InnerWriter.ToString().Contains("onclick=\"javascript:setTimeout('__doPostBack(\\'checkbox$0\\',\\'\\')', 0)\""), "postback handler not rendered");
+			Assert.IsTrue(writer.InnerWriter.ToString().Contains("onclick=\"javascript:setTimeout('__doPostBack(\\'radiobutton$0\\',\\'\\')', 0)\""), "postback handler not rendered");
 		}
 
 		[Test]
@@ -158,9 +158,9 @@ namespace ControlAdapters.UnitTests
 		{
 			listItem.Text = "text";
 			listItem.Value = "value";
-			renderer.RenderCheckBoxListLabel(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListLabel(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
-			Assert.AreEqual("<label for=\"checkbox_0\">text</label>", writer.InnerWriter.ToString(), "label not rendered properly");
+			Assert.AreEqual("<label for=\"radiobutton_0\">text</label>", writer.InnerWriter.ToString(), "label not rendered properly");
 		}
 
 		[Test]
@@ -168,9 +168,9 @@ namespace ControlAdapters.UnitTests
 		{
 			listItem.Text = String.Empty;
 			listItem.Value = "value";
-			renderer.RenderCheckBoxListLabel(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListLabel(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
-			Assert.AreEqual("<label for=\"checkbox_0\">value</label>", writer.InnerWriter.ToString(), "label not rendered properly");
+			Assert.AreEqual("<label for=\"radiobutton_0\">value</label>", writer.InnerWriter.ToString(), "label not rendered properly");
 		}
 
 		[Test]
@@ -178,7 +178,7 @@ namespace ControlAdapters.UnitTests
 		{
 			listItem.Text = String.Empty;
 			listItem.Value = String.Empty;
-			renderer.RenderCheckBoxListLabel(writer, listItem, CheckBoxListHtmlRenderer.GetListItemClientID(control, listItem));
+			renderer.RenderRadioButtonListLabel(writer, listItem, RadioButtonListHtmlRenderer.GetListItemClientID(control, listItem));
 
 			Assert.AreEqual(String.Empty, writer.InnerWriter.ToString(), "label not rendered properly");
 		}
