@@ -1,5 +1,5 @@
 #summary Rendering notes for the Menu control adapter
-#labels documentation,MenuAdapter
+#labels documentation,MenuAdapter,Featured
 
 = Introduction =
 
