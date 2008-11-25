@@ -47,37 +47,42 @@ ASP.Net Code:
 </asp:Menu>
 }}}
 
-Adapted markup:
+Adapted markup (formatted for easy reading0:
 {{{
-<ul id="adaptedMenu" class="menu vertical" attrib1="test1">
-	<li><a title="Perform a file operation" href="javascript:__doPostBack(\'adaptedMenu\',\'1\')">File</a><ul>
-		<li><a title="Open a new document" href="javascript:__doPostBack(\'adaptedMenu\',\'11\')">New</a></li>
-		<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'12\')">Open</a></li>
-</ul>
-</li>
-	<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'2\')">Edit</a><ul>
-		<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'21\')">Copy</a></li>
-		<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'22\')">Paste</a></li>
-		<li class="disabled"><a>Clear</a></li>
-</ul>
-</li>
-	<li class="disabled"><a>View</a><ul>
-		<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'31\')">Normal</a></li>
-		<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'32\')">Preview</a></li>
-</ul>
-</li>
-	<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'4\')">Help</a><ul>
-		<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'41\')">How To</a><ul class="dynamic">
-			<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'411\')">Contents</a></li>
-			<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'412\')">Index</a></li>
-			<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'413\')">Search</a></li>
-	</ul>
+<ul id="adaptedMenu" class="menu vertical class">
+	<li><a title="Perform a file operation" href="javascript:__doPostBack('adaptedMenu','1')">File</a>
+		<ul>
+			<li><a title="Open a new document" href="javascript:__doPostBack('adaptedMenu','11')">New</a></li>
+			<li><a href="javascript:__doPostBack('adaptedMenu','12')">Open</a></li>
+		</ul>
 	</li>
-		<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'42\')">About</a></li>
-</ul>
-</li>
-	<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'NoText\')">NoText</a></li>
-	<li><a href="javascript:__doPostBack(\'adaptedMenu\',\'\')"></a></li>
+	<li><a href="javascript:__doPostBack('adaptedMenu','2')">Edit</a>
+		<ul>
+			<li><a href="javascript:__doPostBack('adaptedMenu','21')">Copy</a></li>
+			<li><a href="javascript:__doPostBack('adaptedMenu','22')">Paste</a></li>
+			<li class="disabled"><a>Clear</a></li>
+		</ul>
+	</li>
+	<li class="disabled"><a>View</a>
+		<ul>
+			<li><a href="javascript:__doPostBack('adaptedMenu','31')">Normal</a></li>
+			<li><a href="javascript:__doPostBack('adaptedMenu','32')">Preview</a></li>
+		</ul>
+	</li>
+	<li><a href="javascript:__doPostBack('adaptedMenu','4')">Help</a>
+		<ul>
+			<li><a href="javascript:__doPostBack('adaptedMenu','41')">How To</a>
+				<ul class="dynamic">
+					<li><a href="javascript:__doPostBack('adaptedMenu','411')">Contents</a></li>
+					<li><a href="javascript:__doPostBack('adaptedMenu','412')">Index</a></li>
+					<li><a href="javascript:__doPostBack('adaptedMenu','413')">Search</a></li>
+				</ul>
+			</li>
+			<li><a href="javascript:__doPostBack('adaptedMenu','42')">About</a></li>
+		</ul>
+	</li>
+	<li><a href="javascript:__doPostBack('adaptedMenu','NoText')">NoText</a></li>
+	<li><a href="javascript:__doPostBack('adaptedMenu','')"></a></li>
 </ul>
 }}}
 
