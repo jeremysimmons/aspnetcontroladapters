@@ -145,7 +145,6 @@ The following table outlines those properties of the `CheckBoxList` control that
 || `ForeColor` || Full || When set other than `Color.Empty`, it is added to the `style` style of the outer `ul`. ||
 || `Height` || Full || When set other than `Unit.Empty`, it is added to the `style` attribute of the outer `ul`. ||
 || `Items` || Full || Items in the control are rendered based on rendering rules. ||
-|| `StaticDisplayLevels` || Full || Specifies how many nested `ul` menus are included in the markup. ||
 || `MaximumDynamicDisplayLevels` || Full || Specifies how many nested `ul` menus are included for dynamic display. By default, dynamic menus are given the `dynamic` CSS class. ||
 || `StaticDisplayLevels` || Full || Specifies how many nested `ul` menus are included in the markup. ||
 || `Width` || Full || When set other than `Unit.Empty`, it is added to the `style` attribute of the outer `ul` or `span`. ||
