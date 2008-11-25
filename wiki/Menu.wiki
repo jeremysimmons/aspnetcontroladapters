@@ -147,6 +147,7 @@ The following table outlines those properties of the `Menu` control that are imp
 || `Items` || Full || Items in the control are rendered based on rendering rules. ||
 || `MaximumDynamicDisplayLevels` || Full || Specifies how many nested `ul` menus are included for dynamic display. By default, dynamic menus are given the `dynamic` CSS class. ||
 || `StaticDisplayLevels` || Full || Specifies how many nested `ul` menus are included in the markup. ||
+|| `TabIndex` || Full || When set to a number greater than zero, its value is added as a `tabindex` attribute on the outer `ul`. ||
 || `Width` || Full || When set other than `Unit.Empty`, it is added to the `style` attribute of the outer `ul` or `span`. ||
 
 
@@ -157,6 +158,7 @@ The following table outlines those properties of the `Menu` control's `Items` co
 || *Property* || *Implementation* ||
 || `ChildItems` || All child items are parsed to the extent permitted by the `StaticDisplayLevels` and `MaximumDynamicDisplayLevels` properties. ||
 || `Enabled` || When not enabled, the default `DisabledCssClass` is applied to the list item. ||
+|| `Selectable` || If a menu item is not selectable, no `href` is applied to the anchor tag. (The menu item exists, but is not clickable.) ||
 || `Text` || Used as the text of the menu item. If this is not used, the `Value` property is used. If neither are used, no text is used for the menu item (not recommended!). ||
 || `Tooltip` || Tooltip text is applied as a `title` attribute to the menu item anchor tag. ||
 || `Value` || Used as the menu's `value` attribute. Note that this is not added in standard ASP.Net markup. ||
