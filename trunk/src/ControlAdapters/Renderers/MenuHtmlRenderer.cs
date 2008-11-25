@@ -41,6 +41,8 @@ namespace ControlAdapters.Renderers
 			attributes.Add("id", Control.ClientID);
 			if (!String.IsNullOrEmpty(allClasses))
 				attributes.Add("class", allClasses);
+			if (Control.TabIndex > 0)
+				attributes.Add("tabindex", Control.TabIndex.ToString());
 
 			AddDefautAttributesToCollection(Control, attributes);
 			WriteAttributes(writer, attributes);
@@ -87,9 +89,11 @@ namespace ControlAdapters.Renderers
 			
 			if (!String.IsNullOrEmpty(item.ToolTip))
 				attributes.Add("title", item.ToolTip);
-			if (enabled)
-				attributes.Add("href", String.Format(@"javascript:__doPostBack(\'{0}\',\'{1}\')", Control.ClientID, item.Value));
-			
+			if (enabled && item.Selectable && Control.Page != null)
+			{
+				string href = this.Control.Page.ClientScript.GetPostBackClientHyperlink(Control, item.Value);
+				attributes.Add("href", href);
+			}
 			WriteAttributes(writer, attributes);
 			writer.Write(HtmlTextWriter.TagRightChar);
 			writer.Write((String.IsNullOrEmpty(item.Text) ? item.Value : item.Text));

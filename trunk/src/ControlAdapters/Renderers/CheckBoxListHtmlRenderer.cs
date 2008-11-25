@@ -158,7 +158,7 @@ namespace ControlAdapters.Renderers
 				writer.WriteAttribute("checked", "checked");
 			if (!String.IsNullOrEmpty(Control.AccessKey))
 				writer.WriteAttribute("accesskey", Control.AccessKey);
-			if (Control.TabIndex != 0)
+			if (Control.TabIndex > 0)
 				writer.WriteAttribute("tabindex", Control.TabIndex.ToString());
 			if (Control.AutoPostBack)
 				writer.WriteAttribute("onclick", String.Format(@"javascript:setTimeout('__doPostBack(\'{0}\',\'\')', 0)", inputName));
