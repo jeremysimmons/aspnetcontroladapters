@@ -54,17 +54,14 @@
 				<h2>Default ASP.Net Markup</h2>
 
 				<asp:Menu ID="defaultMenu" runat="server" 
-					AccessKey="A" attrib2="test2" 
-					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
-					ForeColor="Blue"
-					CssClass="class" TabIndex="1">
+					AccessKey="A" CssClass="class" TabIndex="1">
 					<Items>
 						<asp:MenuItem Text="File" Value="1" ToolTip="Perform a file operation">
 							<asp:MenuItem Text="New" Value="11" ToolTip="Open a new document" />
 							<asp:MenuItem Text="Open" Value="12" />
 						</asp:MenuItem>
 						<asp:MenuItem Text="Edit" Value="2">
-							<asp:MenuItem Text="Copy" Value="21" />
+							<asp:MenuItem Text="Copy" Value="21" Selectable="false" />
 							<asp:MenuItem Text="Paste" Value="22" />
 							<asp:MenuItem Text="Clear" Value="23" Enabled="false" />
 						</asp:MenuItem>
@@ -73,7 +70,7 @@
 							<asp:MenuItem Text="Preview" Value="32" />
 						</asp:MenuItem>
 						<asp:MenuItem Text="Help" Value="4">
-							<asp:MenuItem Text="How To" Value="41">
+							<asp:MenuItem Text="How To" Value="41" Selectable="false">
 								<asp:MenuItem Text="Contents" Value="411" />
 								<asp:MenuItem Text="Index" Value="412" />
 								<asp:MenuItem Text="Search" Value="413" />
@@ -90,17 +87,14 @@
 				<h2>Adapted ASP.Net Markup</h2>
 
 				<ca:Menu ID="adaptedMenu" runat="server"
-					AccessKey="B" attrib2="test2" 
-					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
-					ForeColor="Blue"
-					CssClass="class" TabIndex="11">
+					AccessKey="A" CssClass="class" TabIndex="1">
 					<Items>
 						<asp:MenuItem Text="File" Value="1" ToolTip="Perform a file operation">
 							<asp:MenuItem Text="New" Value="11" ToolTip="Open a new document" />
 							<asp:MenuItem Text="Open" Value="12" />
 						</asp:MenuItem>
 						<asp:MenuItem Text="Edit" Value="2">
-							<asp:MenuItem Text="Copy" Value="21" />
+							<asp:MenuItem Text="Copy" Value="21" Selectable="false" />
 							<asp:MenuItem Text="Paste" Value="22" />
 							<asp:MenuItem Text="Clear" Value="23" Enabled="false" />
 						</asp:MenuItem>
@@ -109,7 +103,7 @@
 							<asp:MenuItem Text="Preview" Value="32" />
 						</asp:MenuItem>
 						<asp:MenuItem Text="Help" Value="4">
-							<asp:MenuItem Text="How To" Value="41">
+							<asp:MenuItem Text="How To" Value="41" Selectable="false">
 								<asp:MenuItem Text="Contents" Value="411" />
 								<asp:MenuItem Text="Index" Value="412" />
 								<asp:MenuItem Text="Search" Value="413" />
