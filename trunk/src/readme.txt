@@ -20,5 +20,5 @@ Project Site:
 Discussion Group:
 	http://groups.google.com/group/aspnetcontroladapters
 
-ControlAdapters Project:
+Original CSSFriendly Project:
 	http://www.codeplex.com/CSSFriendly

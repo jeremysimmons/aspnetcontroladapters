@@ -6,9 +6,6 @@
 	{
 		base.OnLoad(e);
 
-		defaultRadioButtonList.Attributes["attrib1"] = "test1";
-		adaptedRadioButtonList.Attributes["attrib1"] = "test1";
-
 		RepeatDirection rDir = (repeatDirectionOption.SelectedValue == "horizontal"
 			? RepeatDirection.Horizontal : RepeatDirection.Vertical);
 		RepeatLayout rLay = (repeatLayoutOption.SelectedValue == "table"
@@ -27,7 +24,7 @@
 	}
 </script>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head runat="server">
 		<title>Control Adapters: RadioButtonList</title>
@@ -51,17 +48,16 @@
 					<asp:ListItem Value="flow">Flow</asp:ListItem>
 				</asp:DropDownList>
 
-				<asp:Button ID="Button1" runat="server" Text="Postback" />
+				<asp:Button ID="Button1" runat="server" Text="Update" />
 				
 				<hr />
 
 				<h2>Default ASP.Net Markup</h2>
 
 				<asp:RadioButtonList ID="defaultRadioButtonList" runat="server" 
-					AccessKey="A" attrib2="test2" 
 					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
 					ForeColor="Blue" Height="200px" Width="200px"
-					CssClass="class" TabIndex="1">
+					AccessKey="A" CssClass="class" TabIndex="1">
 					<asp:ListItem Value="0">Normal</asp:ListItem>
 					<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
 					<asp:ListItem Value="2" Text="Selected" Selected="True" />
@@ -74,10 +70,9 @@
 				<h2>Adapted ASP.Net Markup</h2>
 
 				<ca:RadioButtonList ID="adaptedRadioButtonList" runat="server"
-					AccessKey="B" attrib2="test2" 
 					BackColor="Red" BorderStyle="Solid" BorderColor="Green" BorderWidth="2" 
 					ForeColor="Blue" Height="200px" Width="200px"
-					CssClass="class" TabIndex="11">
+					AccessKey="A" CssClass="class" TabIndex="1">
 					<asp:ListItem Value="0">Normal</asp:ListItem>
 					<asp:ListItem Value="1" Text="Disabled" Enabled="false" />
 					<asp:ListItem Value="2" Text="Selected" Selected="True" />

@@ -5,8 +5,10 @@
 					 adapterType="ControlAdapters.Adapters.CheckBoxListAdapter" />
 			<adapter controlType="ControlAdapters.WebControls.RadioButtonList"
 					 adapterType="ControlAdapters.Adapters.RadioButtonListAdapter" />
-			<adapter controlType="ControlAdapters.WebControls.Menu"
+      <adapter controlType="ControlAdapters.WebControls.Menu"
 					 adapterType="ControlAdapters.Adapters.MenuAdapter" />
+      <adapter controlType="ControlAdapters.WebControls.Wizard"
+					 adapterType="ControlAdapters.Adapters.WizardAdapter" />
 			<!--
 			Disabled adapters for default ASP.Net controls
 			
