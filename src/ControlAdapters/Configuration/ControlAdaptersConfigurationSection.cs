@@ -62,23 +62,40 @@ namespace ControlAdapters.Configuration
 					return (RadioButtonListSettings)this["RadioButtonList"];
 			}
 			set { this["RadioButtonList"] = value; }
-		}
+        }
 
-		/// <summary>
-		/// Provides access to the <see cref="MenuSettings"/>.
-		/// If no settings are defined, the default settings from <see cref="MenuSettings.Default"/> are returned.
-		/// </summary>
-		[ConfigurationProperty("Menu", IsRequired = false)]
-		public MenuSettings Menu
-		{
-			get
-			{
-				if (this["Menu"] == null)
-					return MenuSettings.Default;
-				else
-					return (MenuSettings)this["Menu"];
-			}
-			set { this["Menu"] = value; }
-		}
+        /// <summary>
+        /// Provides access to the <see cref="MenuSettings"/>.
+        /// If no settings are defined, the default settings from <see cref="MenuSettings.Default"/> are returned.
+        /// </summary>
+        [ConfigurationProperty("Menu", IsRequired = false)]
+        public MenuSettings Menu
+        {
+            get
+            {
+                if (this["Menu"] == null)
+                    return MenuSettings.Default;
+                else
+                    return (MenuSettings)this["Menu"];
+            }
+            set { this["Menu"] = value; }
+        }
+
+        /// <summary>
+        /// Provides access to the <see cref="WizardSettings"/>.
+        /// If no settings are defined, the default settings from <see cref="WizardSettings.Default"/> are returned.
+        /// </summary>
+        [ConfigurationProperty("Wizard", IsRequired = false)]
+        public MenuSettings Wizard
+        {
+            get
+            {
+                if (this["Wizard"] == null)
+                    return MenuSettings.Default;
+                else
+                    return (MenuSettings)this["Wizard"];
+            }
+            set { this["Wizard"] = value; }
+        }
 	}
 }

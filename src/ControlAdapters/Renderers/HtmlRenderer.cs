@@ -105,9 +105,11 @@ namespace ControlAdapters.Renderers
 			if (!control.Width.IsEmpty)
 				styles["width"] = control.Width.ToString();
 
-			foreach (string key in control.Attributes.Keys)
-				attributes.Add(key, control.Attributes[key]);
-
+            foreach (string key in control.Attributes.Keys)
+            {
+                if (!String.Equals(key, "style", StringComparison.InvariantCultureIgnoreCase))
+                    attributes.Add(key, control.Attributes[key]);
+            }
 			return attributes;
 		}
 
