@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using ControlAdapters.Adapters;
+using ControlAdapters.Configuration;
 
 namespace ControlAdapters.Configuration
 {
@@ -56,6 +56,22 @@ namespace ControlAdapters.Configuration
                     return (string)base["disabledCssClass"];
             }
             set { base["disabledCssClass"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the CSS class used for the control's header.
+        /// </summary>
+        [ConfigurationProperty("headerCssClass", IsRequired = false)]
+        public string HeaderCssClass
+        {
+            get
+            {
+                if (base["headerCssClass"] == null)
+                    return String.Empty;
+                else
+                    return (string)base["headerCssClass"];
+            }
+            set { base["headerCssClass"] = value; }
         }
 	}
 }

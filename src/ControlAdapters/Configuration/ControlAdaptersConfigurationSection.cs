@@ -86,14 +86,14 @@ namespace ControlAdapters.Configuration
         /// If no settings are defined, the default settings from <see cref="WizardSettings.Default"/> are returned.
         /// </summary>
         [ConfigurationProperty("Wizard", IsRequired = false)]
-        public MenuSettings Wizard
+        public WizardSettings Wizard
         {
             get
             {
                 if (this["Wizard"] == null)
-                    return MenuSettings.Default;
+                    return WizardSettings.Default;
                 else
-                    return (MenuSettings)this["Wizard"];
+                    return (WizardSettings)this["Wizard"];
             }
             set { this["Wizard"] = value; }
         }
