@@ -68,11 +68,12 @@ namespace ControlAdapters.Renderers
 			return writer.InnerWriter.ToString();
 		}
 
-		/// <summary>
-		/// Renders a menu item. Is used recursively to handle child menu items.
-		/// </summary>
-		/// <param name="writer">The <see cref="HtmlTextWriter"/> to use to generate HTML.</param>
-		/// <param name="item">The menu item to render.</param>
+        /// <summary>
+        /// Renders a menu item. Is used recursively to handle child menu items.
+        /// </summary>
+        /// <param name="writer">The <see cref="HtmlTextWriter"/> to use to generate HTML.</param>
+        /// <param name="item">The menu item to render.</param>
+        /// <param name="level">The level of this menu item (hierarchical level).</param>
 		protected void RenderMenuItem(HtmlTextWriter writer, MenuItem item, int level)
 		{
 			bool enabled = (item.Enabled && Control.Enabled);

@@ -235,5 +235,21 @@ namespace ControlAdapters.Renderers
 		{
 			return new HtmlTextWriter(new StringWriter());
 		}
+
+        /// <summary>
+        /// Generates HTML from a control template.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <returns>The generated HTML.</returns>
+        public static string GenerateHtmlFromTemplate(ITemplate template)
+        {
+            HtmlTextWriter writer = CreateHtmlTextWriter();
+
+            PlaceHolder ph = new PlaceHolder();
+            template.InstantiateIn(ph);
+            ph.RenderControl(writer);
+
+            return writer.InnerWriter.ToString();
+        }
 	}
 }
