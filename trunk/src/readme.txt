@@ -11,6 +11,15 @@ this project will provide an alternate set of control adapters that render
 your ASP.Net controls using well-documented semantic HTML and CSS.
 
 
+CREDITS
+-------
+
+Current Developers:
+	Brian DeMarzo (bdemarzo@gmail.com)
+
+Based on original concepts developed by Microsoft and Russ Helfand.
+
+
 LINKS
 ----- 
 
