@@ -28,7 +28,7 @@ namespace ControlAdapters.Renderers
 			AttributeCollection attributes = new AttributeCollection(new StateBag(true));
 
 			string cssClass = Settings.Menu.CssClass;
-			string disabledCssClass = Settings.CheckBoxList.DisabledCssClass;
+			string disabledCssClass = Settings.Menu.DisabledCssClass;
 
 			string allClasses = ConcatenateCssClasses(
 				cssClass,
